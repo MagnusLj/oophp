@@ -4,24 +4,17 @@ title: "Min fina titel"
 Min me-sida i kursen oophp
 =========================
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/index.md`.
+[FIGURE src="image/profilbild.jpg?w=350" class="left w33"]
 
-[FIGURE src="image/me.jpg?w=400&a=4,27,11,0&cf&sharpen" class="right" caption="Bild på mig, ätandes glass och hållandes ett kort på någon jultillställning."]
+<p id="text">Sidan har skrivits av Magnus som studerar på andra terminen på programmet Webbprogrammering på Blekinge Tekniska Högskola.
+Magnus tycker om programmering och vill gärna göra klart utbildningen och sedan fortsätta med det på något sätt.</p>
 
-Detta är min me-sida i kursen. Denna sidan innehåller en presentation av mig själv. Underhåll denna sidan under hela kursen och uppdatera den efter hand och behov.
+När han inte studerar arbetar Magnus i Region Skåne dels med praktisk sjukvård och dels med vårdinformationssystem.
 
-Så, en presentation en bra början. Skriv några ord om dig själv. Jag börjar.
+Han bor tillsammans med sambo och en stor katt.
 
-Mitt namn är Mikael Roos. Född och uppvuxen i Bankeryd, Småland, strax utanför Jönköping, i ett villaområde som byggdes upp samtidigt som vi flyttade in där. Jag gillade landhockey och har spelat bandy och hockey samt gått bowlinggymnasiet i Nässjö. Jag har varit städare, diskare, kallskänka, servitör och kock. På ett bananskal landade jag i Ronneby när jag började högskolan 1990 där och nu är jag kvar med fru, barn och så vidare.
+När han varken arbetar eller studerar tycker han om att spendera tid på landet.
 
-Programmering har alltid intresserat mig sedan 13-årsåldern och min första dator var en Spectravideo 328 med bandspelare.
+Just nu är det en hel del på gång med ett gammalt hus som behöver mycket kärlek.
 
-Om jag skall nämna någon hobby, förutom webbprogrammering, så får det bli att bära sten på sommarstugetomten, och det finns sten så det räcker och blir över.
-
-Till och från får jag för mig att börja på lite hobbies, ett år satsade jag på pokerspel, ett annat år var det geocaching, sedan turfing och nu på sistone verkar släktforskning lite spännande. Annars kan jag alltid koda på något av mina opensource-projekt, det finns och blir över.
-
-Vill du läsa mer om vad jag jobbat med så kan du kika på min [Linkedin-profil](https://www.linkedin.com/in/pt90mr/).
-
-Vi syns och hörs i forum och chatt!
-
-/Mikael
+Även god mat och dryck, goda vänners lag, goda tv-serier, resor, surfning, vissa spel och lite kortare skogspromenader uppskattas.

@@ -1,3 +1,3 @@
-#### Footer col 3
+#### Höger kolumn
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+Den här kolumnen har inga kolumner till höger om sig men väl två till vänster.

@@ -1,0 +1,40 @@
+/**
+ * Base style to affect HTML elements on a general scale.
+ */
+@bgColorHtml: red;//gray;  //#424242;
+@bgColorBody: red;//white;  //#fff;
+@colorBody: #333;
+@fontFamilyBody: serif;
+
+html {
+    overflow-y: scroll;
+    background-color: @bgColorHtml;
+}
+
+article {
+	padding: 5px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: @colorBody;
+    background-color: @bgColorBody;
+    font: 100.01%/1 @fontFamilyBody;
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.inner-wrap {
+    @bgColorBody;
+}
+
+.outer-wrap-header {
+    @bgColorBody;
+}
