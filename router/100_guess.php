@@ -1,0 +1,33 @@
+<?php
+/**
+ * Create routes using $app programming style.
+ */
+//var_dump(array_keys(get_defined_vars()));
+
+
+
+/**
+ * Initiate the game and redirect to play the game
+ */
+$app->router->get("guess/init", function () use ($app) {
+    // Init session for game start
+    return $app->response->redirect("guess/play");
+});
+
+
+
+/**
+ * Returning a JSON message with Hello World.
+ */
+$app->router->get("guess/play", function () use ($app) {
+    $title = "Play game";
+    $data = [
+        "who" => "Dr Zjivago",
+    ];
+
+    $app->page->add("guess/play", $data);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+});
