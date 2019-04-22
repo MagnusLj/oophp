@@ -28,10 +28,11 @@ class Guess
      *                    default 6.
      */
 
-    public function __construct(int $number = -1, int $tries = 6)
+    public function __construct(int $number = -1, int $tries = 6, string $cheat = "no")
     {
             $this->number = $number;
             $this->tries = $tries;
+            $this->cheat = $cheat;
     }
 
 
@@ -39,7 +40,7 @@ class Guess
     /**
      * Randomize the secret number between 1 and 100 to initiate a new game.
      *
-     * @return void
+     * @return int , random number.
      */
 
     public function random()
@@ -129,10 +130,13 @@ class Guess
         if ($guess === $this->number) {
             echo "<p>\nCorrect!\n</p>";
             $_SESSION['result'] = "<h2>Correct answer! Horray!</h2>";
-            header("Location: ../guess/view/game_over.php");
+            header("Location: ../guess/game_over");
+        } elseif ($this->cheat == "yes") {
+            $_SESSION['result'] = "<h2>Cheater! The correct number is $this->number</h2>";
+            $this->cheat = "no";
         } elseif ($tries < 1) {
             $_SESSION['result'] = "<h2>No more guesses!</h2>";
-            header("Location: ../guess/view/game_over.php");
+            // header("Location: ../guess/view/game_over.php");
         } elseif ($guess < $this->number) {
             $_SESSION['result'] = "<h2>We too low!</h2>";
             // echo "<p>\nWe too low!\n</p>";
@@ -146,7 +150,7 @@ class Guess
   *
   *
   *
-  * @return void to show the status of the guess made.
+  * @return void , destroy session
   */
 
     public function gozer()
@@ -180,7 +184,7 @@ class Guess
        *
        *
        *
-       * @return void to show the status of the guess made.
+       * @return void , destroy session.
        */
 
     public function gozer2()

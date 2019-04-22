@@ -10,12 +10,13 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Play the game!</h1>
+?><h1>Guess my number!</h1>
 
-<h1>Guess my number</h1>
+<!-- <h1>Guess my number</h1> -->
 
 
 <p>Guess a number between 1 and 100. You have <?= $tries ?> tries left.</p>
+
 
 
 
@@ -27,3 +28,5 @@ namespace Anax\View;
     <input type="submit" name="doInit" value="Start over">
     <input type="submit" name="doCheat" value="Cheat">
 </form>
+
+<?= $result ?>
