@@ -11,4 +11,19 @@ namespace Anax\View;
 
 
 ?><h1>Play the game!</h1>
-<p>Player is <?= $who ?></p>
+
+<h1>Guess my number</h1>
+
+
+<p>Guess a number between 1 and 100. You have <?= $tries ?> tries left.</p>
+
+
+
+
+<form method="post">
+    <input type="number" name="guess">
+
+    <input type="submit" name="doGuess" value="Make a guess">
+    <input type="submit" name="doInit" value="Start over">
+    <input type="submit" name="doCheat" value="Cheat">
+</form>
