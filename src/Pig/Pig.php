@@ -36,6 +36,33 @@ class Pig
   private $active;
 
 
+
+  /**
+  * @var int $die1, die1 value.
+  */
+ private $die1;
+
+ /**
+ * @var int $die2, die1 value.
+ */
+private $die2;
+
+/**
+* @var int $rolls  Number of rolls.
+*/
+private $rolls;
+
+/**
+* @var int $turnScore Curernt score
+*/
+private $turnScore;
+
+/**
+* @var int $totalScore. Total score
+*/
+private $totalScore;
+
+
     /**
      * Constructor to initiate the dicehand with a number of dices.
      *
@@ -48,6 +75,112 @@ class Pig
         $this->sides = 6;
 
         $this->active = false;
+
+        $this->die1 = null;
+
+        $this->die2 = null;
+
+        $this->rolls = 0;
+
+        $this->turnScore = 0;
+
+        $this->totalScore = 0;
+    }
+
+
+    /**
+     * getDie1
+     * @return int , return die1 value
+     */
+
+    public function getDie1()
+    {
+        return $this->die1;
+    }
+
+    /**
+     * getDie2
+     * @return int , return die2 value
+     */
+
+    public function getDie2()
+    {
+        return $this->die2;
+    }
+
+    /**
+     * setDie1
+     * @return void
+     */
+    public function setDie1($die1)
+    {
+        $this->die1 = $die1;
+    }
+
+    /**
+     * setDie2
+     * @return void
+     */
+    public function setDie2($die2)
+    {
+        $this->die2 = $die2;
+    }
+
+    /**
+     * getDiceSum
+     * @return int , return sum of both dice
+     */
+
+    public function getDiceSum()
+    {
+        $diceSum = $this->die1 + $this->die2;
+        return $diceSum;
+    }
+
+    /**
+     * getRolls
+     * @return int , return amount of rolls
+     */
+
+    public function getRolls()
+    {
+        return $this->rolls;
+    }
+
+    public function setRolls($rolls)
+    {
+        $this->rolls = $rolls;
+    }
+
+    /**
+     * getTurnScore
+     * @return int , return score for this turn
+     */
+
+    public function getTurnScore()
+    {
+        return $this->turnScore;
+    }
+
+    public function setTurnScore($score)
+    {
+        $this->turnScore = $score;
+    }
+
+    /**
+     * getTotalScore
+     * @return int , return total score
+     */
+
+    public function getTotalScore()
+    {
+        return $this->totalScore;
+    }
+
+
+    public function setTotalScore($score)
+    {
+        $this->totalScore = $score;
     }
 
 
@@ -75,19 +208,19 @@ class Pig
 
 
     /**
-     * Set first win
-     * @return void , set names
+     *
+     * @return void , set active status
      */
 
-    public function setActive()
+    public function setActive($aBoolean)
     {
-        $this->active = true;
+        $this->active = $aBoolean;
     }
 
 
     /**
-     * Get first win
-     * @return string , set names
+     *
+     * @return string , get active status
      */
 
     public function getActive()
@@ -115,6 +248,43 @@ class Pig
         $this->value = $aRoll;
         $this->lastRoll = $aRoll;
     }
+
+    /**
+     * Roll all dices save their value.
+     *
+     * @@return int
+     */
+    public function roll2()
+    {
+        // for ($i = 0; $i < 6; $i++) {
+        //     $a_roll = rand(1, 6);
+        //     array_push($this->values, $a_roll);
+        // }
+        // // print_r($this->values);
+        // return $this->values;
+        $aRoll = rand(1, 6);
+        $bRoll = rand(1, 6);
+        $this->die1 = $aRoll;
+        $this->die2 = $bRoll;
+    }
+
+    /**
+     * RollOrNot
+     *
+     * @@return int, how computer decides to roll or not
+     */
+    public function rollOrNot()
+    {
+        // for ($i = 0; $i < 6; $i++) {
+        //     $a_roll = rand(1, 6);
+        //     array_push($this->values, $a_roll);
+        // }
+        // // print_r($this->values);
+        // return $this->values;
+        $aRoll = rand(1, 2);
+        return $aRoll;
+    }
+
 
     public function getLastRoll()
     {

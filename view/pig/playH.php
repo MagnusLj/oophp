@@ -10,17 +10,12 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Kasta gris!</h1>
+?>
 
 <!-- <h1>Guess my number</h1> -->
-
-
-<p>Första kastet: <?= $c_name ?> fick <?= $c_value ?> poäng. <?= $h_name ?> fick <?= $h_value ?> poäng. <?= $active ?> får börja.</p>
-
-
-
-
+<p></p>
 
 <form method="post">
-    <input type="submit" name="continue1" value="Fortsätt">
+    <input type="submit" name="newRoll" value="Nytt kast">
+    <input type="submit" name="stop" value="Stanna">
 </form>

@@ -14,23 +14,23 @@ class PigHandler
 
 
        /**
-        * Check first win.
+        * Check active.
         *
         * @return variable , variable
         */
        public function active($computer, $human)
        {
            if ($computer->value() > $human->value()) {
-               $computer->setActive();
+               $computer->setActive(true);
                return $computer->getName();
            }
-           $human->setActive();
+           $human->setActive(true);
            return $human->getName();
        }
 
 
        /**
-        * Check first win in another way.
+        * Check active in another way.
         *
         * @return variable , variable
         */
@@ -44,8 +44,120 @@ class PigHandler
 
 
 
-}
+       /**
+        * Check active in yet another way.
+        *
+        * @return string , string
+        */
+       public function getActive2($computer, $human)
+       {
+           if ($computer->getActive() == true) {
+               return "pig/playC";
+           }
+           elseif ($human->getActive() == true) {
+               if ($human->getDie1() !==1 && $human->getDie2() !==1) {
+           return "pig/playH";
+       } else {
+           return "pig/playC";
+       }
+       }
+       }
 
+
+       /**
+        * mainRoll.
+        *
+        * @return void , void
+        */
+       public function mainRoll($human, $computer)
+       {
+            if ($computer->getActive() == true) {
+                $computer->setActive(false);
+                $human->setActive(true);
+            } else {
+                // $human->setTotalScore($human->getTotalScore + $human->getTurnScore);
+                $computer->setActive(true);
+                $human->setActive(false);
+            }
+            $computer->setTotalScore($computer->getTotalScore() + $computer->getTurnScore());
+            $human->setTotalScore($human->getTotalScore() + $human->getTurnScore());
+            $computer->setTurnScore(0);
+            $human->setTurnScore(0);
+            $computer->setRolls(0);
+            $human->setRolls(0);
+            $human->setDie1(null);
+            $human->setDie2(null);
+            $computer->setDie1(null);
+            $computer->setDie2(null);
+        }
+
+
+        /**
+         * mainRoll.
+         *
+         * @return void , void
+         */
+        public function mainRoll2($human, $computer)
+        {
+            if ($computer->getActive() == true) {
+                echo "Computer";
+                // do {
+                    // $computer->roll2();
+                    // $computer->setTurnScore($computer->getTurnScore() + $computer->getDiceSum());
+                } //while ($computer->rollOrNot() > 1);
+            else {
+                $human->roll2();
+                $human->setRolls($human->getRolls() + 1);
+                if ($human->getDie1() !==1 && $human->getDie2() !==1) {
+                    $human->setTurnScore($human->getTurnScore() + $human->getDiceSum());
+                } else {
+                    $human->setTurnScore(0);
+                }
+            }
+        }
+
+
+        /**
+         * mainRoll.
+         *
+         * @return void , void
+         */
+        public function computerRoll($human, $computer)
+        {
+            if ($computer->getActive() == true) {
+                do {
+                    $computer->roll2();
+                    $computer->setRolls($computer->getRolls() + 1);
+                    $computer->setTurnScore($computer->getTurnScore() + $computer->getDiceSum());
+                } while ($computer->rollOrNot() > 1 && ($computer->getDie1() !==1 && $computer->getDie2() !==1));
+                if ($computer->getDie1() ==1 || $computer->getDie2() ==1) {
+                    $computer->setTurnScore(0);
+                }
+        }
+    }
+
+//             do {
+//     code to be executed;
+// } while (condition is true);
+//
+// if $computer->rollOrNot() == 2 {
+//     $computer->roll2();
+// }
+
+
+            // $computer->setTotalScore($computer->getTotalScore + $computer->getTurnScore);
+            // $human->setTotalScore($human->getTotalScore + $human->getTurnScore);
+            // $computer->setTurnScore(0);
+            // $human->setTurnScore(0);
+            // $computer->setRolls(0);
+            // $human->setRolls(0);
+
+
+
+//
+//
+//
+}
 
 
 

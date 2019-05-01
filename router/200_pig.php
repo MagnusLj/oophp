@@ -128,7 +128,7 @@ $app->router->get("pig/play", function () use ($app) {
         // "result" => $result ?? null
     ];
 
-
+    // $pigHandler->computerRoll($human, $computer);
 
     $app->page->add("pig/play", $data);
     $app->page->add("pig/debug");
@@ -207,22 +207,128 @@ $app->router->get("pig/play2", function () use ($app) {
     }
 
     $active = $pigHandler->getActive($computer, $human);
-    print_r($active);
+
+    $pigHandler->computerRoll($human, $computer);
+
+    $die1H = $human->getDie1();
+    $die2H = $human->getDie2();
+
+    $die1C = $computer->getDie1();
+    $die2C = $computer->getDie2();
+
+    $rollsH = $human->getRolls();
+    $rollsC = $computer->getRolls();
+
+    $turnScoreH = $human->getTurnScore();
+    $turnScoreC = $computer->getTurnScore();
+
+    $totalScoreH = $human->getTotalScore();
+    $totalScoreC = $computer->getTotalScore();
+
+    $diceSumH = $human->getDiceSum();
+    $diceSumC = $computer->getDiceSum();
+
+    $rollsH = $human->getRolls();
+    $rollsC = $computer->getRolls();
+
+    $bottom = $pigHandler->getActive2($computer, $human);
+
+    // print_r($active);
 
 
     $data = [
-        "active" => $active
+        "active" => $active,
+        "die1H" => $die1H,
+        "die2H" => $die2H,
+        "die1C" => $die1C,
+        "die2C" => $die2C,
+        "rollsH" => $rollsH,
+        "rollsC" => $rollsC,
+        "turnScoreH" => $turnScoreH,
+        "turnScoreC" => $turnScoreC,
+        "totalScoreH" => $totalScoreH,
+        "totalScoreC" => $totalScoreC,
+        "diceSumH" => $diceSumH,
+        "diceSumC" => $diceSumC
+
         // "result" => $result ?? null
     ];
 
 
+
     $app->page->add("pig/play2", $data);
+
+    $app->page->add($bottom);
+
     // $app->page->add("pig/play");
     $app->page->add("guess/debug");
 
     return $app->page->render([
         "title" => $title,
     ]);
+});
+
+
+
+
+$app->router->post("pig/play2", function () use ($app) {
+    /**
+     * Redirect after computer throw.
+     */
+
+    if (isset($_SESSION['computer'])) {
+        $computer = $_SESSION['computer'];
+    }
+
+    if (isset($_SESSION['human'])) {
+        $human = $_SESSION['human'];
+    }
+
+
+    if (isset($_SESSION['pigHandler'])) {
+        $pigHandler = $_SESSION['pigHandler'];
+    }
+
+    if ($_POST["continue2"] ?? false) {
+        $pigHandler->mainRoll($human, $computer);
+        if (isset($_SESSION['computer'])) {
+            $_SESSION["computer"] = $computer;
+        }
+
+        if (!isset($_SESSION['human'])) {
+            $_SESSION["human"] = $human;
+        }
+
+        return $app->response->redirect("pig/play2");
+}
+    elseif ($_POST["newRoll"] ?? false) {
+        $pigHandler->mainRoll2($human, $computer);
+        if (isset($_SESSION['computer'])) {
+            $_SESSION["computer"] = $computer;
+        }
+
+        if (!isset($_SESSION['human'])) {
+            $_SESSION["human"] = $human;
+        }
+        // $pigHandler->mainRoll($human, $computer);
+        return $app->response->redirect("pig/play2");
+    }
+
+    elseif ($_POST["stop"] ?? false) {
+        $pigHandler->mainRoll($human, $computer);
+        if (isset($_SESSION['computer'])) {
+            $_SESSION["computer"] = $computer;
+        }
+
+        if (!isset($_SESSION['human'])) {
+            $_SESSION["human"] = $human;
+        }
+        return $app->response->redirect("pig/play2");
+        // $guessobj = $_SESSION['guessobj'];
+        // $guessobj->gozer();
+    }
+
+    // return $app->response->redirect("pig/play2");
 });
 
 
