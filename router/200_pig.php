@@ -233,6 +233,8 @@ $app->router->get("pig/play2", function () use ($app) {
 
     $bottom = $pigHandler->getActive2($computer, $human);
 
+    $winner = $pigHandler->getWinner2($human, $computer);
+
     // print_r($active);
 
 
@@ -249,12 +251,22 @@ $app->router->get("pig/play2", function () use ($app) {
         "totalScoreH" => $totalScoreH,
         "totalScoreC" => $totalScoreC,
         "diceSumH" => $diceSumH,
-        "diceSumC" => $diceSumC
+        "diceSumC" => $diceSumC,
+        "winner" => $winner
 
         // "result" => $result ?? null
     ];
 
 
+    // $winner = $pigHandler->getWinner2($human, $computer);
+
+    if ($totalScoreH >= 20) {
+        return $app->response->redirect("pig/game_over");
+    } elseif ($totalScoreC >= 20) {
+        return $app->response->redirect("pig/game_over");
+    }
+
+    else {
 
     $app->page->add("pig/play2", $data);
 
@@ -266,6 +278,7 @@ $app->router->get("pig/play2", function () use ($app) {
     return $app->page->render([
         "title" => $title,
     ]);
+}
 });
 
 
@@ -328,8 +341,57 @@ $app->router->post("pig/play2", function () use ($app) {
         // $guessobj->gozer();
     }
 
+    elseif ($_POST["continue3"] ?? false) {
+        return $app->response->redirect("pig/init");
+        // $guessobj = $_SESSION['guessobj'];
+        // $guessobj->gozer();
+    }
+
     // return $app->response->redirect("pig/play2");
 });
+
+
+$app->router->get("pig/game_over", function () use ($app) {
+
+    $title = "Kasta gris";
+
+    if (isset($_SESSION['computer'])) {
+        $computer = $_SESSION['computer'];
+    }
+
+    if (isset($_SESSION['human'])) {
+        $human = $_SESSION['human'];
+    }
+
+    if (isset($_SESSION['pigHandler'])) {
+        $pigHandler = $_SESSION['pigHandler'];
+    }
+
+    $winner = $pigHandler->getWinner2($human, $computer);
+
+    $data = [
+        "winner" => $winner
+    ];
+
+    $app->page->add("pig/game_over", $data);
+
+    // $app->page->add($bottom);
+
+    // $app->page->add("pig/play");
+    $app->page->add("guess/debug");
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+});
+
+$app->router->post("pig/game_over", function () use ($app) {
+    // if ($_POST["continue3"] ?? false) {
+        return $app->response->redirect("pig/init");
+// }
+
+});
+
 
 
 // $app->router->post("guess/play", function () use ($app) {

@@ -85,6 +85,29 @@ private $totalScore;
         $this->turnScore = 0;
 
         $this->totalScore = 0;
+
+        $this->winner = false;
+    }
+
+
+    /**
+     * setWinner
+     * @return void , setWinner
+     */
+
+    public function setWinner()
+    {
+        $this->winner = true;
+    }
+
+    /**
+     * getWinner
+     * @return bool , getWinner
+     */
+
+    public function getWinner()
+    {
+        return $this->winner;
     }
 
 

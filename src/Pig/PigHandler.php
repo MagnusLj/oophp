@@ -49,8 +49,15 @@ class PigHandler
         *
         * @return string , string
         */
-       public function getActive2($computer, $human)
-       {
+       public function getActive2($computer, $human) {
+       if ($human->getTotalScore() >= 20) {
+           $human->setWinner();
+           return "pig/game_over";
+       } elseif ($computer->getTotalScore() >= 20) {
+           $computer->setWinner();
+           return "pig/game_over";
+       }
+       else {
            if ($computer->getActive() == true) {
                return "pig/playC";
            }
@@ -62,7 +69,7 @@ class PigHandler
        }
        }
        }
-
+}
 
        /**
         * mainRoll.
@@ -135,6 +142,22 @@ class PigHandler
                 }
         }
     }
+
+
+    /**
+     * getWinner
+     * @return string , getWinner
+     */
+
+    public function getWinner2($human, $computer)
+    {
+        if ($human->getWinner() == true) {
+            return $human->getName();
+        } else {
+            return $computer->getName();
+        }
+    }
+
 
 //             do {
 //     code to be executed;
