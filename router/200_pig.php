@@ -66,41 +66,6 @@ $app->router->get("pig/play", function () use ($app) {
 
 
 
-    // if (isset($_SESSION['cheat'])) {
-    //     if ($_SESSION['cheat'] === 'yes') {
-    //         $guessobj->cheat = "yes";
-    //         // echo "<p>\n</p>";
-    //         // echo "CHEATER! The previously secret number is " . $guessobj->number;
-    //         // $_SESSION['cheat'] = 'no';
-    //     }
-    // }
-
-    // var_dump($guessobj);
-
-    // if (isset($_SESSION['guess'])) {
-    //         $guess = $_SESSION['guess'];
-    //         $guessobj->makeGuess($guess);
-    // }
-    //
-    // $tries = $guessobj->getTries();
-    //
-    // if (isset($_SESSION['result'])) {
-    //         $result = $_SESSION['result'];
-    // }
-
-
-    // if ($tries == 0) {
-    //     return $app->response->redirect("guess/game_over");
-    // }
-
-
-
-    // if (isset($_SESSION['pig'])) {
-    //     if ($guess === $guessobj->number) {
-    //             return $app->response->redirect("guess/game_over");
-    //     }
-    // }
-
 
 
 
@@ -128,10 +93,10 @@ $app->router->get("pig/play", function () use ($app) {
         // "result" => $result ?? null
     ];
 
-    // $pigHandler->computerRoll($human, $computer);
+    // $pigHandler->computerRoll($computer);
 
     $app->page->add("pig/play", $data);
-    $app->page->add("pig/debug");
+    // $app->page->add("pig/debug");
 
     return $app->page->render([
         "title" => $title,
@@ -139,36 +104,7 @@ $app->router->get("pig/play", function () use ($app) {
 });
 
 
-/**
- * Render game over page
- */
-// $app->router->get("guess/game_over", function () use ($app) {
-//     // Game over page
-//     $title = "Play game";
-//
-//     $app->page->add("guess/game_over");
-//     // $app->page->add("guess/debug");
-//
-//     return $app->page->render([
-//         "title" => $title,
-//     ]);
-// });
 
-
-// /**
-//  * Redirect from game over page
-//  */
-// $app->router->post("guess/game_over", function () use ($app) {
-//     // Init session for game start
-//
-//     // $app->page->add("guess/game_over");
-//     // $app->page->add("guess/debug");
-//
-//     // return $app->page->render([
-//     //     "title" => $title,
-//     // ]);
-//     return $app->response->redirect("guess/init");
-// });
 
 
 
@@ -177,14 +113,6 @@ $app->router->post("pig/play", function () use ($app) {
      * Redirect after initial throw.
      */
 
-    // if ($_POST["continue1"] ?? false) {
-    //     $_SESSION['cheat'] = 'yes';
-    //     $guessobj = $_SESSION['guessobj'];
-    //     $number = $guessobj->number;
-    //     $_SESSION['result'] = "<h2>Cheater! The correct number is $number</h2>";
-    //     $_SESSION['cheat'] = 'no';
-    //     // echo $_SESSION['cheat'];
-    // }
 
     return $app->response->redirect("pig/play2");
 });
@@ -208,7 +136,7 @@ $app->router->get("pig/play2", function () use ($app) {
 
     $active = $pigHandler->getActive($computer, $human);
 
-    $pigHandler->computerRoll($human, $computer);
+    $pigHandler->computerRoll($computer);
 
     $die1H = $human->getDie1();
     $die2H = $human->getDie2();
@@ -233,7 +161,7 @@ $app->router->get("pig/play2", function () use ($app) {
 
     $bottom = $pigHandler->getActive2($computer, $human);
 
-    $winner = $pigHandler->getWinner2($human, $computer);
+    $winner = $pigHandler->isWinner2($human, $computer);
 
     // print_r($active);
 
@@ -258,27 +186,24 @@ $app->router->get("pig/play2", function () use ($app) {
     ];
 
 
-    // $winner = $pigHandler->getWinner2($human, $computer);
+    // $winner = $pigHandler->isWinner2($human, $computer);
 
-    if ($totalScoreH >= 20) {
+    if ($totalScoreH >= 100) {
         return $app->response->redirect("pig/game_over");
-    } elseif ($totalScoreC >= 20) {
+    } elseif ($totalScoreC >= 100) {
         return $app->response->redirect("pig/game_over");
+    } else {
+        $app->page->add("pig/play2", $data);
+
+        $app->page->add($bottom);
+
+        // $app->page->add("pig/play");
+        // $app->page->add("guess/debug");
+
+        return $app->page->render([
+            "title" => $title,
+        ]);
     }
-
-    else {
-
-    $app->page->add("pig/play2", $data);
-
-    $app->page->add($bottom);
-
-    // $app->page->add("pig/play");
-    $app->page->add("guess/debug");
-
-    return $app->page->render([
-        "title" => $title,
-    ]);
-}
 });
 
 
@@ -313,8 +238,7 @@ $app->router->post("pig/play2", function () use ($app) {
         }
 
         return $app->response->redirect("pig/play2");
-}
-    elseif ($_POST["newRoll"] ?? false) {
+    } elseif ($_POST["newRoll"] ?? false) {
         $pigHandler->mainRoll2($human, $computer);
         if (isset($_SESSION['computer'])) {
             $_SESSION["computer"] = $computer;
@@ -325,9 +249,7 @@ $app->router->post("pig/play2", function () use ($app) {
         }
         // $pigHandler->mainRoll($human, $computer);
         return $app->response->redirect("pig/play2");
-    }
-
-    elseif ($_POST["stop"] ?? false) {
+    } elseif ($_POST["stop"] ?? false) {
         $pigHandler->mainRoll($human, $computer);
         if (isset($_SESSION['computer'])) {
             $_SESSION["computer"] = $computer;
@@ -339,9 +261,7 @@ $app->router->post("pig/play2", function () use ($app) {
         return $app->response->redirect("pig/play2");
         // $guessobj = $_SESSION['guessobj'];
         // $guessobj->gozer();
-    }
-
-    elseif ($_POST["continue3"] ?? false) {
+    } elseif ($_POST["continue3"] ?? false) {
         return $app->response->redirect("pig/init");
         // $guessobj = $_SESSION['guessobj'];
         // $guessobj->gozer();
@@ -367,7 +287,7 @@ $app->router->get("pig/game_over", function () use ($app) {
         $pigHandler = $_SESSION['pigHandler'];
     }
 
-    $winner = $pigHandler->getWinner2($human, $computer);
+    $winner = $pigHandler->isWinner2($human, $computer);
 
     $data = [
         "winner" => $winner
@@ -378,7 +298,7 @@ $app->router->get("pig/game_over", function () use ($app) {
     // $app->page->add($bottom);
 
     // $app->page->add("pig/play");
-    $app->page->add("guess/debug");
+    // $app->page->add("guess/debug");
 
     return $app->page->render([
         "title" => $title,
@@ -389,53 +309,4 @@ $app->router->post("pig/game_over", function () use ($app) {
     // if ($_POST["continue3"] ?? false) {
         return $app->response->redirect("pig/init");
 // }
-
 });
-
-
-
-// $app->router->post("guess/play", function () use ($app) {
-//
-//     /**
-//      * Redirect on restart.
-//      */
-//
-//     if ($_POST["doInit"] ?? false) {
-//         $guessobj = $_SESSION['guessobj'];
-//         $guessobj->gozer();
-//     }
-//
-//     return $app->response->redirect("guess/play");
-// });
-
-
-/**
- * Redirect on cheat.
- */
-
-// if ($_POST["doCheat"] ?? false) {
-//     $_SESSION['cheat'] = 'yes';
-//     // echo $_SESSION['cheat'];
-// }
-
-/**
- * Redirect on restart.
- */
-
-if ($_POST["doInit"] ?? false) {
-    $guessobj = $_SESSION['guessobj'];
-    $guessobj->gozer();
-}
-
-
-$title = "Play game";
-
-
-/**
- * Guess
- */
-if ($_POST["doGuess"] ?? false) {
-    $_SESSION['guess'] = intval($_POST["guess"]);
-    $guessobj = $_SESSION['guessobj'];
-    $tries = $guessobj->tries;
-}

@@ -16,5 +16,5 @@ namespace Anax\View;
 <p><?= $winner ?> vinner! Använd knappen nedan för att starta ett nytt spel.</p>
 
 <form method="post">
-    <input type="submit" name="continue3" value="Spela igen">
+    <input type="submit" name="continue3" style="margin-bottom: 100px;" value="Spela igen">
 </form>

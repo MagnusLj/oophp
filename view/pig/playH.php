@@ -17,5 +17,5 @@ namespace Anax\View;
 
 <form method="post">
     <input type="submit" name="newRoll" value="Nytt kast">
-    <input type="submit" name="stop" value="Stanna">
+    <input type="submit" name="stop" value="Stanna" style="margin-bottom: 100px;">
 </form>

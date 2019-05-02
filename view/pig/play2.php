@@ -23,15 +23,15 @@ namespace Anax\View;
     <tr>
         <td>Total poäng</td><td><?= $totalScoreH ?></td><td><?= $totalScoreC ?></td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td></td><td></td><td></td>
-    </tr>
+    </tr> -->
     <tr>
         <td>Aktuell poäng</td><td><?= $turnScoreH ?></td><td><?= $turnScoreC ?></td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td></td><td></td><td></td>
-    </tr>
+    </tr> -->
     <tr>
         <td>Tärning 1</td><td><?= $die1H ?></td><td><?= $die1C ?></td>
     </tr>
@@ -41,9 +41,9 @@ namespace Anax\View;
     <tr>
         <td>Summa</td><td><?= $diceSumH ?></td><td><?= $diceSumC ?></td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td></td><td></td><td></td>
-    </tr>
+    </tr> -->
     <tr>
         <td>Antal kast</td><td><?= $rollsH ?></td><td><?= $rollsC ?></td>
     </tr>

@@ -16,5 +16,5 @@ namespace Anax\View;
 <p></p>
 
 <form method="post">
-    <input type="submit" name="continue2" value="Fortsätt">
+    <input type="submit" name="continue2" value="Fortsätt" style="margin-bottom: 100px;">
 </form>
