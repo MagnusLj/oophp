@@ -23,9 +23,10 @@ class PigHandler
         if ($computer->value() > $human->value()) {
             $computer->setActive(true);
             return $computer->getName();
+        } else {
+            $human->setActive(true);
+            return $human->getName();
         }
-        $human->setActive(true);
-        return $human->getName();
     }
 
 

@@ -20,10 +20,10 @@ class Pig
     private $value;
      // public $value;
 
-     /**
-     * @var int $lastRoll  Value of the last roll.
-     */
-    private $lastRoll;
+    //  /**
+    //  * @var int $lastRoll  Value of the last roll.
+    //  */
+    // private $lastRoll;
 
     /**
     * @var string $lastRoll  Value of the last roll.
@@ -175,6 +175,11 @@ class Pig
         $this->rolls = $rolls;
     }
 
+    // public function setValue($value)
+    // {
+    //     $this->value = $value;
+    // }
+
     /**
      * getTurnScore
      * @return int , return score for this turn
@@ -309,10 +314,10 @@ class Pig
     }
 
 
-    public function getLastRoll()
-    {
-        return $this->lastRoll;
-    }
+    // public function getLastRoll()
+    // {
+    //     return $this->lastRoll;
+    // }
 
     /**
      * Get values of dices from last roll.
@@ -324,27 +329,27 @@ class Pig
         return $this->value;
     }
 
-    /**
-     * Get the sum of all dices.
-     *
-     * @return int as the sum of all dices.
-     */
-    public function sum()
-    {
-        $sum = array_sum($this->values);
-        return $sum;
-    }
+    // /**
+    //  * Get the sum of all dices.
+    //  *
+    //  * @return int as the sum of all dices.
+    //  */
+    // public function sum()
+    // {
+    //     $sum = array_sum($this->values);
+    //     return $sum;
+    // }
 
-    /**
-     * Get the average of all dices.
-     *
-     * @return float as the average of all dices.
-     */
-    public function average()
-    {
-        $average = $this->sum() / count($this->values);
-        return $average;
-    }
+    // /**
+    //  * Get the average of all dices.
+    //  *
+    //  * @return float as the average of all dices.
+    //  */
+    // public function average()
+    // {
+    //     $average = $this->sum() / count($this->values);
+    //     return $average;
+    // }
 
     /**
      * Destroy the session
