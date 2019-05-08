@@ -11,10 +11,11 @@ namespace Anax\View;
 
 
 ?>
-<h1>Kasta gris (Controller)!</h1>
+
 <!-- <h1>Guess my number</h1> -->
-<p><?= $winner ?> vinner! Använd knappen nedan för att starta ett nytt spel.</p>
+<p></p>
 
 <form method="post">
-    <input type="submit" name="continue3" style="margin-bottom: 100px;" value="Spela igen">
+    <input type="submit" name="newRoll" value="Nytt kast">
+    <input type="submit" name="stop" value="Stanna" style="margin-bottom: 100px;">
 </form>

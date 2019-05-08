@@ -10,11 +10,17 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?>
-<h1>Kasta gris (Controller)!</h1>
+?><h1>Kasta gris (Controller)!</h1>
+
 <!-- <h1>Guess my number</h1> -->
-<p><?= $winner ?> vinner! Använd knappen nedan för att starta ett nytt spel.</p>
+
+
+<p>Första kastet: <?= $c_name ?> fick <?= $c_value ?> poäng. <?= $h_name ?> fick <?= $h_value ?> poäng. <?= $active ?> får börja.</p>
+
+
+
+
 
 <form method="post">
-    <input type="submit" name="continue3" style="margin-bottom: 100px;" value="Spela igen">
+    <input type="submit" name="continue1" value="Fortsätt">
 </form>

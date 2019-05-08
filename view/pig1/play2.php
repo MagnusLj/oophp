@@ -10,7 +10,7 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Kasta gris (Controller)!</h1>
+?><h1>Kasta gris!</h1>
 
 <!-- <h1>Guess my number</h1> -->
 
