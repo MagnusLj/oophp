@@ -77,36 +77,26 @@ class PigController implements AppInjectableInterface
     {
         // Init session for game start
 
-        // $pigobj = new Pig();
-        //
-        // $pigobj->gozer();
-
         $session = $this->app->session;
+        $response = $this->app->response;
 
         $computer = new Pig();
         $computer->setName("Datorn");
-        // $guessobj->number = $guessobj->random();
-        // $c_value = $computer->value();
-        // $c_name = $computer->getName();
-
 
 
         $human = new Pig();
         $human->setName("Människan");
-        // $guessobj->number = $guessobj->random();
-        // $h_value = $human->value();
-        // $h_name = $human->getName();
 
 
         $pigHandler = new PigHandler();
-        // $active = $pigHandler->active($computer, $human);
+
 
         $session->set("computer", $computer);
         $session->set("human", $human);
         $session->set("pigHandler", $pigHandler);
 
 
-        return $this->app->response->redirect("pig1/play");
+        return $response->redirect("pig1/play");
     }
 
 
@@ -124,50 +114,14 @@ class PigController implements AppInjectableInterface
 
 
         $session = $this->app->session;
+        $response = $this->app->response;
+        $page = $this->app->page;
 
         $title = "Spela kasta gris (Controller)";
 
         $computer = $session->get("computer");
         $human = $session->get("human");
         $pigHandler = $session->get("pigHandler");
-
-
-        //Deal with incoming variables
-        // $pigobj = $_POST["pigobj"] ?? null;
-        // $computer = $_POST["computer"] ?? null;
-        // $human = $_POST["human"] ?? null;
-
-        // if (!isset($computer)) {
-        //     $computer = new Pig();
-        //     $computer->setName("Datorn");
-        //     // $guessobj->number = $guessobj->random();
-        //     $c_value = $computer->value();
-        //     $c_name = $computer->getName();
-        // }
-        //
-        // if (!isset($human)) {
-        //     $human = new Pig();
-        //     $human->setName("Människan");
-        //     // $guessobj->number = $guessobj->random();
-        //     $h_value = $human->value();
-        //     $h_name = $human->getName();
-        // }
-        //
-        // if (!isset($active)) {
-        //     $pigHandler = new PigHandler();
-        //     $active = $pigHandler->active($computer, $human);
-        // }
-
-        // $number = $guessobj->getNumber();
-
-        // if (isset($_SESSION['computer'])) {
-        //         $computer = $_SESSION['computer'];
-        // }
-        //
-        // if (isset($_SESSION['human'])) {
-        //         $human = $_SESSION['human'];
-        // }
-
 
 
         $c_value = $computer->value();
@@ -178,24 +132,8 @@ class PigController implements AppInjectableInterface
 
 
         $session->set("computer", $computer);
-
-        // if (!isset($_SESSION['computer'])) {
-        //     $_SESSION["computer"] = $computer;
-        // }
-
         $session->set("human", $human);
-
-        // if (!isset($_SESSION['human'])) {
-        //     $_SESSION["human"] = $human;
-        // }
-
         $session->set("pigHandler", $pigHandler);
-
-        // if (!isset($_SESSION['pigHandler'])) {
-        //     $_SESSION["pigHandler"] = $pigHandler;
-        // }
-
-
 
 
         $data = [
@@ -209,10 +147,10 @@ class PigController implements AppInjectableInterface
 
         // $pigHandler->computerRoll($computer);
 
-        $this->app->page->add("pig1/play", $data);
+        $page->add("pig1/play", $data);
         // $this->app->page->add("pig1/debug");
 
-        return $this->app->page->render([
+        return $page->render([
             "title" => $title,
         ]);
     }
@@ -230,35 +168,14 @@ class PigController implements AppInjectableInterface
     public function playActionPost() //: object
     {
         $session = $this->app->session;
+        $response = $this->app->response;
 
         $computer = $session->get("computer");
         $human = $session->get("human");
         $pigHandler = $session->get("pigHandler");
 
-        // print_r($human);
-        // echo "XXXXXXXXXXXXXXXXXXXXX\n\n";
-        // print_r($computer);
-        // echo "XXXXXXXXXXXXXXXXXXXXX\n\n";
-        // print_r($pigHandler);
-        // $session = $this->app->session;
-        // /**
-        //  * Redirect after initial throw.
-        //  */
-        //  $session->set("computer", $computer);
-        //
-        //  // if (!isset($_SESSION['computer'])) {
-        //  //     $_SESSION["computer"] = $computer;
-        //  // }
-        //
-        //  $session->set("human", $human);
-        //
-        //  // if (!isset($_SESSION['human'])) {
-        //  //     $_SESSION["human"] = $human;
-        //  // }
-        //
-        //  $session->set("pigHandler", $pigHandler);
 
-        return $this->app->response->redirect("pig1/play2");
+        return $response->redirect("pig1/play2");
     }
 
 
@@ -281,22 +198,14 @@ class PigController implements AppInjectableInterface
         $title = "Kasta gris";
 
         $session = $this->app->session;
+        $response = $this->app->response;
+        $page = $this->app->page;
 
-        // if (isset($_SESSION['computer'])) {
-        //         $computer = $_SESSION['computer'];
-        // }
 
         $computer = $session->get("computer");
         $human = $session->get("human");
         $pigHandler = $session->get("pigHandler");
 
-        // if (isset($_SESSION['human'])) {
-        //         $human = $_SESSION['human'];
-        // }
-        //
-        // if (isset($_SESSION['pigHandler'])) {
-        //         $pigHandler = $_SESSION['pigHandler'];
-        // }
 
         $active = $pigHandler->getActive($computer, $human);
 
@@ -327,8 +236,6 @@ class PigController implements AppInjectableInterface
 
         $winner = $pigHandler->isWinner2($human, $computer);
 
-        // print_r($active);
-
 
         $data = [
             "active" => $active,
@@ -345,26 +252,21 @@ class PigController implements AppInjectableInterface
             "diceSumH" => $diceSumH,
             "diceSumC" => $diceSumC,
             "winner" => $winner
-
-            // "result" => $result ?? null
         ];
 
 
-        // $winner = $pigHandler->isWinner2($human, $computer);
 
         if ($totalScoreH >= 100) {
-            return $this->app->response->redirect("pig1/game_over");
+            return $response->redirect("pig1/game_over");
         } elseif ($totalScoreC >= 100) {
-            return $this->app->response->redirect("pig1/game_over");
+            return $response->redirect("pig1/game_over");
         } else {
-            $this->app->page->add("pig/play2", $data);
+            $page->add("pig/play2", $data);
 
-            $this->app->page->add($bottom);
+            $page->add($bottom);
 
-            // $app->page->add("pig/play");
-            // $app->page->add("guess/debug");
 
-            return $this->app->page->render([
+            return $page->render([
                 "title" => $title,
             ]);
         }
@@ -387,94 +289,46 @@ class PigController implements AppInjectableInterface
          */
 
          $session = $this->app->session;
+         $response = $this->app->response;
+         $request = $this->app->request;
 
          $computer = $session->get("computer");
          $human = $session->get("human");
          $pigHandler = $session->get("pigHandler");
 
-         // print_r($human);
-         // echo "XXXXXXXXXXXXXXXXXXXXX\n\n";
-         // print_r($computer);
-         // echo "XXXXXXXXXXXXXXXXXXXXX\n\n";
-         // print_r($pigHandler);
-         // $session = $this->app->session;
-         // /**
-         //  * Redirect after initial throw.
-         //  */
-         //  $session->set("computer", $computer);
-         //
-         //  // if (!isset($_SESSION['computer'])) {
-         //  //     $_SESSION["computer"] = $computer;
-         //  // }
-         //
-         //  $session->set("human", $human);
-         //
-         //  // if (!isset($_SESSION['human'])) {
-         //  //     $_SESSION["human"] = $human;
-         //  // }
-         //
-         //  $session->set("pigHandler", $pigHandler);
-
-
-
-        if ($_POST["continue2"] ?? false) {
+        // if ($_POST["continue2"] ?? false) {
+        if ($request->getPost("continue2")) {
             $pigHandler->mainRoll($human, $computer);
 
-            // if (isset($_SESSION['computer'])) {
-            //     $_SESSION["computer"] = $computer;
-            // }
 
             $session->set("computer", $computer);
-
-            // if (!isset($_SESSION['human'])) {
-            //     $_SESSION["human"] = $human;
-            // }
-
             $session->set("human", $human);
-
             $session->set("pigHandler", $pigHandler);
 
-            return $this->app->response->redirect("pig1/play2");
-        } elseif ($_POST["newRoll"] ?? false) {
+            return $response->redirect("pig1/play2");
+        // } elseif ($_POST["newRoll"] ?? false) {
+        } elseif ($request->getPost("newRoll")) {
             $pigHandler->mainRoll2($human, $computer);
-            // if (isset($_SESSION['computer'])) {
-            //     $_SESSION["computer"] = $computer;
-            // }
+
             $session->set("computer", $computer);
-
-            // if (!isset($_SESSION['human'])) {
-            //     $_SESSION["human"] = $human;
-            // }
             $session->set("human", $human);
-
             $session->set("pigHandler", $pigHandler);
 
-            // $pigHandler->mainRoll($human, $computer);
-            return $this->app->response->redirect("pig1/play2");
-        } elseif ($_POST["stop"] ?? false) {
+            return $response->redirect("pig1/play2");
+        // } elseif ($_POST["stop"] ?? false) {
+        } elseif ($request->getPost("stop")) {
             $pigHandler->mainRoll($human, $computer);
-            // if (isset($_SESSION['computer'])) {
-            //     $_SESSION["computer"] = $computer;
-            // }
+
             $session->set("computer", $computer);
-
-            // if (!isset($_SESSION['human'])) {
-            //     $_SESSION["human"] = $human;
-            // }
             $session->set("human", $human);
-
             $session->set("pigHandler", $pigHandler);
 
-            return $this->app->response->redirect("pig1/play2");
-            // $guessobj = $_SESSION['guessobj'];
-            // $guessobj->gozer();
-        } elseif ($_POST["continue3"] ?? false) {
-            return $this->app->response->redirect("pig1/init");
-            // $guessobj = $_SESSION['guessobj'];
-            // $guessobj->gozer();
-        }
+            return $response->redirect("pig1/play2");
 
-        // return $app->response->redirect("pig/play2");
+        // } elseif ($_POST["continue3"] ?? false) {
+        } elseif ($request->getPost("continue3")) {
+            return $response->redirect("pig1/init");
+        }
     }
 
 
@@ -490,20 +344,10 @@ class PigController implements AppInjectableInterface
     public function game_overActionGet() : object
     {
         $session = $this->app->session;
+        $response = $this->app->response;
+        $page = $this->app->page;
 
         $title = "Kasta gris";
-
-        // if (isset($_SESSION['computer'])) {
-        //     $computer = $_SESSION['computer'];
-        // }
-        //
-        // if (isset($_SESSION['human'])) {
-        //     $human = $_SESSION['human'];
-        // }
-        //
-        // if (isset($_SESSION['pigHandler'])) {
-        //     $pigHandler = $_SESSION['pigHandler'];
-        // }
 
         $computer = $session->get("computer");
         $human = $session->get("human");
@@ -515,14 +359,9 @@ class PigController implements AppInjectableInterface
             "winner" => $winner
         ];
 
-        $this->app->page->add("pig1/game_over", $data);
+        $page->add("pig1/game_over", $data);
 
-        // $app->page->add($bottom);
-
-        // $app->page->add("pig/play");
-        // $app->page->add("guess/debug");
-
-        return $this->app->page->render([
+        return $page->render([
             "title" => $title,
         ]);
     }
@@ -539,7 +378,8 @@ class PigController implements AppInjectableInterface
      */
     public function game_overActionPost() : object
     {
-        return $this->app->response->redirect("pig1/init");
+        $response = $this->app->response;
+        return $response->redirect("pig1/init");
     }
 
 
