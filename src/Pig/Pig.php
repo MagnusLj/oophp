@@ -9,8 +9,10 @@ namespace Malm18\Pig;
 // include(__DIR__ . "../../autoload.php");
 // include(__DIR__ . "../../config.php");
 
-class Pig
+class Pig implements HistogramInterface
 {
+
+    use HistogramTrait2;
     /**
  * A dicehand, consisting of dice.
  */
@@ -87,6 +89,8 @@ class Pig
         $this->totalScore = 0;
 
         $this->winner = false;
+
+        $this->hArray = [];
     }
 
 
@@ -294,7 +298,20 @@ class Pig
         $bRoll = rand(1, 6);
         $this->die1 = $aRoll;
         $this->die2 = $bRoll;
+        $this->addToArray($aRoll, $bRoll);
+        // array_push($this->hArray, $aRoll, $bRoll);
+        // return $this->hArray;
     }
+
+    /**
+     * addToArray
+    * @return void
+    */
+   public function addToArray($aRoll, $bRoll)
+   {
+       array_push($this->serie, $aRoll, $bRoll);
+       // return $this->getLastRoll();
+   }
 
     /**
      * RollOrNot

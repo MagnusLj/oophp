@@ -87,6 +87,8 @@ class PigController implements AppInjectableInterface
         $human = new Pig();
         $human->setName("Människan");
 
+        $histogram = new Histogram();
+
 
         $pigHandler = new PigHandler();
 
@@ -206,6 +208,17 @@ class PigController implements AppInjectableInterface
         $human = $session->get("human");
         $pigHandler = $session->get("pigHandler");
 
+        // print_r($human->hArray);
+        // print_r($computer->hArray);
+
+        // $dice = new DiceHistogram2();
+
+
+        $histogramH = new Histogram();
+        $histogramC = new Histogram();
+        $histogramH->injectData($human);
+        $histogramC->injectData($computer);
+
 
         $active = $pigHandler->getActive($computer, $human);
 
@@ -251,7 +264,9 @@ class PigController implements AppInjectableInterface
             "totalScoreC" => $totalScoreC,
             "diceSumH" => $diceSumH,
             "diceSumC" => $diceSumC,
-            "winner" => $winner
+            "winner" => $winner,
+            "histogramH" => $histogramH,
+            "histogramC" => $histogramC
         ];
 
 
