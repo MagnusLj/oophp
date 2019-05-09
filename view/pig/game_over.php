@@ -18,3 +18,14 @@ namespace Anax\View;
 <form method="post">
     <input type="submit" name="continue3" style="margin-bottom: 100px;" value="Spela igen">
 </form>
+
+<!-- <h1>Display a histogram</h1> -->
+<div class="humandiv">
+<p>Människans kast</p>
+<pre><?= $histogramH->getAsText() ?></pre>
+</div>
+
+<div class="computerdiv">
+<p>Datorns kast</p>
+<pre><?= $histogramC->getAsText() ?></pre>
+</div>

@@ -5426,3 +5426,13 @@ body,
   color: #ddd;
   background-color: #464a3e;
 }
+.computerdiv {
+  float: right;
+  margin: 0 50px;
+}
+.humandiv {
+  float: right;
+}
+.pigtable {
+  margin-top: 41px;
+}

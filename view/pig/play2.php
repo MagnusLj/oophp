@@ -16,7 +16,18 @@ namespace Anax\View;
 
 <h3><?= $active ?>s runda</h3>
 
-<table>
+<!-- <h1>Display a histogram</h1> -->
+<div class="humandiv">
+<p>Människans kast</p>
+<pre><?= $histogramH->getAsText() ?></pre>
+</div>
+
+<div class="computerdiv">
+<p>Datorns kast</p>
+<pre><?= $histogramC->getAsText() ?></pre>
+</div>
+
+<table class="pigtable">
     <tr>
         <td></td><td>Människan</td><td>Datorn</td>
     </tr>
@@ -49,13 +60,7 @@ namespace Anax\View;
     </tr>
 </table>
 
-<!-- <h1>Display a histogram</h1> -->
 
-<p><?= implode(", ", $histogramH->getSerie()) ?></p>
-<pre><?= $histogramH->getAsText() ?></pre>
-
-<p><?= implode(", ", $histogramC->getSerie()) ?></p>
-<pre><?= $histogramC->getAsText() ?></pre>
 
 <!-- <form method="post">
     <input type="submit" name="continue1" value="Fortsätt">

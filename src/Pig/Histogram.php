@@ -53,9 +53,9 @@ class Histogram
     public function getAsText()
     {
         $hArray = [];
-        // for ($i = 1; $i < 7; $i++) {
-        //     $hArray[$i] = " ";
-        // }
+        for ($i = 1; $i < 7; $i++) {
+            $hArray[$i] = " ";
+        }
         foreach ($this->serie as $value) {
             // $hArray[$value] = "";
             // $hArray[$value] = str_repeat("*", intval($value));
@@ -83,6 +83,6 @@ class Histogram
             $hString .= $key . ": " . $value . "\n" ;
         }
 
-        echo "\n\n" . $hString;
+        echo $hString;
     }
 }
