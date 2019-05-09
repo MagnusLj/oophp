@@ -329,6 +329,19 @@ class Pig
         return $this->value;
     }
 
+
+    /**
+     * Set value
+     *
+     * @return void.
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+
+
     // /**
     //  * Get the sum of all dices.
     //  *

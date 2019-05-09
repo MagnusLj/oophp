@@ -106,12 +106,7 @@ class PigHandler
      */
     public function mainRoll2($human, $computer)
     {
-        if ($computer->getActive() == true) {
-            echo "Computer";
-            // do {
-                // $computer->roll2();
-                // $computer->setTurnScore($computer->getTurnScore() + $computer->getDiceSum());
-        } else {
+        if ($computer->getActive() !== true) {
             $human->roll2();
             $human->setRolls($human->getRolls() + 1);
             if ($human->getDie1() !==1 && $human->getDie2() !==1) {
