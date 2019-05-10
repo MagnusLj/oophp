@@ -123,14 +123,15 @@ class PigHandler
      *
      * @return void , void
      */
-    public function computerRoll($computer)
+    public function computerRoll($computer, $human)
     {
+        $totalHuman = $human->getTotalScore();
         if ($computer->getActive() == true) {
             do {
                 $computer->roll2();
                 $computer->setRolls($computer->getRolls() + 1);
                 $computer->setTurnScore($computer->getTurnScore() + $computer->getDiceSum());
-            } while ($computer->rollOrNot() > 1 && ($computer->getDie1() !==1 && $computer->getDie2() !==1));
+            } while ($computer->rollOrNot($totalHuman) > 1 && ($computer->getDie1() !==1 && $computer->getDie2() !==1));
             if ($computer->getDie1() ==1 || $computer->getDie2() ==1) {
                 $computer->setTurnScore(0);
             }

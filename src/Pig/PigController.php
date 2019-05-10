@@ -219,7 +219,7 @@ class PigController implements AppInjectableInterface
 
         $active = $pigHandler->getActive($computer, $human);
 
-        $pigHandler->computerRoll($computer);
+        $pigHandler->computerRoll($computer, $human);
 
         $die1H = $human->getDie1();
         $die2H = $human->getDie2();

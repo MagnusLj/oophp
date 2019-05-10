@@ -318,7 +318,7 @@ class Pig implements HistogramInterface
      *
      * @@return int, how computer decides to roll or not
      */
-    public function rollOrNot()
+    public function rollOrNot($totalScoreH)
     {
         // for ($i = 0; $i < 6; $i++) {
         //     $a_roll = rand(1, 6);
@@ -326,8 +326,16 @@ class Pig implements HistogramInterface
         // }
         // // print_r($this->values);
         // return $this->values;
-        $aRoll = rand(1, 2);
-        return $aRoll;
+        // $aRoll = rand(1, 2);
+        if ($this->totalScore >= 100) {
+            return 1;
+        } elseif ($this->totalScore >= 71 || $totalScoreH >= 71) {
+            return 2;
+        } elseif ($this->turnScore <= 20) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
 

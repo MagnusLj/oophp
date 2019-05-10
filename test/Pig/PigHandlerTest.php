@@ -334,7 +334,7 @@ class PigHandlerTest extends TestCase
         $human->setActive(false);
         $pigHandler = new PigHandler();
         $this->assertInstanceOf("\Malm18\Pig\PigHandler", $pigHandler);
-        $pigHandler->computerRoll($computer);
+        $pigHandler->computerRoll($computer, $human);
         // $pigHandler->active($computer, $human);
         // $human->roll2();
         // $computer->roll2();

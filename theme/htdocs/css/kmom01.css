@@ -5737,11 +5737,12 @@ form {
 }
 .computerdiv {
   float: right;
-  margin: 0 50px;
+  margin: 0 30px;
 }
 .humandiv {
   float: right;
 }
 .pigtable {
   margin-top: 41px;
+  width: 387px;
 }
