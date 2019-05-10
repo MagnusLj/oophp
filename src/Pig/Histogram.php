@@ -29,6 +29,11 @@ class Histogram
         return $this->serie;
     }
 
+    public function setSerie($testArray)
+    {
+        $this->serie = $testArray;
+    }
+
     /**
  * Inject the object to use as base for the histogram data.
  *
@@ -84,5 +89,6 @@ class Histogram
         }
 
         echo $hString;
+        return $hString;
     }
 }
