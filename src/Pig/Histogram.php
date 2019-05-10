@@ -88,7 +88,7 @@ class Histogram
             $hString .= $key . ": " . $value . "\n" ;
         }
 
-        echo $hString;
+        // echo $hString;
         return $hString;
     }
 }
