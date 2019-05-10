@@ -15,7 +15,7 @@ namespace Anax\View;
 <!-- <h1>Guess my number</h1> -->
 
 
-<p>Första kastet: <?= $c_name ?> fick <?= $c_value ?> poäng. <?= $h_name ?> fick <?= $h_value ?> poäng. <?= $active ?> får börja.</p>
+<p>Första kastet: <?= $cName ?> fick <?= $cValue ?> poäng. <?= $h_name ?> fick <?= $h_value ?> poäng. <?= $active ?> får börja.</p>
 
 
 

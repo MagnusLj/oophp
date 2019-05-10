@@ -13,8 +13,8 @@ class Histogram
      * @var int   $max    The highest possible number.
      */
     private $serie = [];
-    private $min;
-    private $max;
+    // private $min;
+    // private $max;
 
 
 

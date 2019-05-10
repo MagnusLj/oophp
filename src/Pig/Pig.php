@@ -307,11 +307,11 @@ class Pig implements HistogramInterface
      * addToArray
     * @return void
     */
-   public function addToArray($aRoll, $bRoll)
-   {
-       array_push($this->serie, $aRoll, $bRoll);
-       // return $this->getLastRoll();
-   }
+    public function addToArray($aRoll, $bRoll)
+    {
+        array_push($this->serie, $aRoll, $bRoll);
+        // return $this->getLastRoll();
+    }
 
     /**
      * RollOrNot

@@ -54,10 +54,10 @@ class PigHandler
     {
         if ($human->getTotalScore() >= 100) {
             $human->setWinner();
-            return "pig/game_over";
+            return "pig/gameOver";
         } elseif ($computer->getTotalScore() >= 100) {
             $computer->setWinner();
-            return "pig/game_over";
+            return "pig/gameOver";
         } else {
             if ($computer->getActive() == true) {
                 return "pig/playC";

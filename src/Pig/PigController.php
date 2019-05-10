@@ -57,10 +57,7 @@ class PigController implements AppInjectableInterface
      * @return string
      */
     public function indexAction() : string
-    // public function debugAction() : string
     {
-        // Deal with the action and return a response.
-        // return __METHOD__ . ", \$db is {$this->db}";
         return "Indexx";
     }
 
@@ -87,7 +84,7 @@ class PigController implements AppInjectableInterface
         $human = new Pig();
         $human->setName("Människan");
 
-        $histogram = new Histogram();
+        // $histogram = new Histogram();
 
 
         $pigHandler = new PigHandler();
@@ -116,7 +113,7 @@ class PigController implements AppInjectableInterface
 
 
         $session = $this->app->session;
-        $response = $this->app->response;
+        // $response = $this->app->response;
         $page = $this->app->page;
 
         $title = "Spela kasta gris (Controller)";
@@ -126,10 +123,10 @@ class PigController implements AppInjectableInterface
         $pigHandler = $session->get("pigHandler");
 
 
-        $c_value = $computer->value();
-        $c_name = $computer->getName();
-        $h_value = $human->value();
-        $h_name = $human->getName();
+        $cValue = $computer->value();
+        $cName = $computer->getName();
+        $hValue = $human->value();
+        $hName = $human->getName();
         $active = $pigHandler->active($computer, $human);
 
 
@@ -139,10 +136,10 @@ class PigController implements AppInjectableInterface
 
 
         $data = [
-            "c_name" => $c_name,
-            "h_name" => $h_name,
-            "c_value" => $c_value,
-            "h_value" => $h_value,
+            "cName" => $cName,
+            "hName" => $hName,
+            "cValue" => $cValue,
+            "hValue" => $hValue,
             "active" => $active
             // "result" => $result ?? null
         ];
@@ -169,12 +166,12 @@ class PigController implements AppInjectableInterface
      */
     public function playActionPost() //: object
     {
-        $session = $this->app->session;
+        // $session = $this->app->session;
         $response = $this->app->response;
 
-        $computer = $session->get("computer");
-        $human = $session->get("human");
-        $pigHandler = $session->get("pigHandler");
+        // $computer = $session->get("computer");
+        // $human = $session->get("human");
+        // $pigHandler = $session->get("pigHandler");
 
 
         return $response->redirect("pig1/play2");
@@ -272,11 +269,11 @@ class PigController implements AppInjectableInterface
 
 
         if ($totalScoreH >= 100) {
-            return $response->redirect("pig1/game_over");
+            return $response->redirect("pig1/gameOver");
         } elseif ($totalScoreC >= 100) {
-            return $response->redirect("pig1/game_over");
+            return $response->redirect("pig1/gameOver");
         } else {
-            $page->add("pig/play2", $data);
+            $page->add("pig1/play2", $data);
 
             $page->add($bottom);
 
@@ -356,10 +353,10 @@ class PigController implements AppInjectableInterface
      *
      * @return string
      */
-    public function game_overActionGet() : object
+    public function gameOverActionGet() : object
     {
         $session = $this->app->session;
-        $response = $this->app->response;
+        // $response = $this->app->response;
         $page = $this->app->page;
 
         $title = "Kasta gris";
@@ -374,7 +371,7 @@ class PigController implements AppInjectableInterface
             "winner" => $winner
         ];
 
-        $page->add("pig1/game_over", $data);
+        $page->add("pig1/gameOver", $data);
 
         return $page->render([
             "title" => $title,
@@ -391,7 +388,7 @@ class PigController implements AppInjectableInterface
      *
      * @return string
      */
-    public function game_overActionPost() : object
+    public function gameOverActionPost() : object
     {
         $response = $this->app->response;
         return $response->redirect("pig1/init");
@@ -411,13 +408,9 @@ class PigController implements AppInjectableInterface
      * @return string
      */
     public function debugAction() : string
-    // public function debugAction() : string
     {
-        // Deal with the action and return a response.
-        // return __METHOD__ . ", \$db is {$this->db}";
         return "Debug my pig";
     }
-
 }
 
 //     /**

@@ -210,7 +210,7 @@ class PigHandlerTest extends TestCase
 
         // $pig->setActive(true);
         $res = $pigHandler->getActive2($computer, $human);
-        $exp = "pig/game_over";
+        $exp = "pig/gameOver";
         $this->assertEquals($exp, $res);
     }
 
@@ -234,7 +234,7 @@ class PigHandlerTest extends TestCase
 
         // $pig->setActive(true);
         $res = $pigHandler->getActive2($computer, $human);
-        $exp = "pig/game_over";
+        $exp = "pig/gameOver";
         $this->assertEquals($exp, $res);
     }
 
