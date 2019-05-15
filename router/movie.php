@@ -226,3 +226,115 @@ $app->router->post("search-year", function () use ($app) {
 
     return $app->response->redirect("search-year");
 });
+
+
+
+
+
+
+$app->router->get("movie-select", function () use ($app) {
+    $title = "Movie database | oophp";
+
+    $app->db->connect();
+    $sql = "SELECT * FROM movie;";
+    $movies = $app->db->executeFetchAll($sql);
+
+    // $pigobj = new Malm18\Pig\Pig();
+    //
+    // $pigobj->gozer();
+
+    $app->page->add("movie/header");
+
+    $app->page->add("movie/movie-select", [
+        "movies" => $movies,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+});
+
+
+
+$app->router->post("movie-select", function () use ($app) {
+    $title = "Movie database | oophp";
+
+    if ($_POST["doEdit"] ?? false && is_numeric($movieId)) {
+        $_SESSION["movieId"] = $_POST["movieId"];
+        return $app->response->redirect("movie-edit");
+        }
+});
+
+
+
+
+
+
+$app->router->get("movie-edit", function () use ($app) {
+    $title = "Movie database | oophp";
+
+
+
+    // $app->db->connect();
+    // $sql = "SELECT * FROM movie;";
+    // $movies = $app->db->executeFetchAll($sql);
+
+    // $pigobj = new Malm18\Pig\Pig();
+    //
+    // $pigobj->gozer();
+
+    if ($_SESSION["movieId"] ?? false) {
+        $movieId = $_SESSION["movieId"];
+        // print_r(year1);
+}
+
+// print_r($_SESSION);
+
+if ($movieId) {
+    $app->db->connect();
+    $sql = "SELECT * FROM movie WHERE id LIKE ?;";
+    $movie = $app->db->executeFetchAll($sql, [$movieId]);
+    print_r($movie[0]->title);
+    $movie = $movie[0];
+    // $app->page->add("movie/index", [
+    //     "resultset" => $resultset,
+    // ]);
+}
+
+    $app->page->add("movie/header");
+
+    $app->page->add("movie/movie-edit", [
+        "movie" => $movie,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+});
+
+
+
+$app->router->post("movie-edit", function () use ($app) {
+    $title = "Movie database | oophp";
+
+    if ($_POST["doSave"] ?? false) {
+        $movieTitle = $_POST["movieTitle"];
+        $movieYear = $_POST["movieYear"];
+        $movieImage = $_POST["movieImage"];
+        $movieId = $_POST["movieId"];
+        $app->db->connect();
+        $sql = "UPDATE movie SET title = ?, year = ?, image = ? WHERE id = ?;";
+        $app->db->execute($sql, [$movieTitle, $movieYear, $movieImage, $movieId]);
+        return $app->response->redirect("movie-edit");
+        }
+});
+
+
+
+
+// if (getPost("doSave")) {
+//     $sql = "UPDATE movie SET title = ?, year = ?, image = ? WHERE id = ?;";
+//     $db->execute($sql, [$movieTitle, $movieYear, $movieImage, $movieId]);
+//     header("Location: ?route=movie-edit&movieId=$movieId");
+//     exit;
+// }
