@@ -79,5 +79,10 @@ return [
             "url" => "pig-game",
             "title" => "Spela Kasta gris",
         ],
+        [
+            "text" => "Filmer",
+            "url" => "movie",
+            "title" => "Lär dig allt om film",
+        ],
     ],
 ];
