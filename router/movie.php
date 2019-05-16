@@ -48,7 +48,7 @@ $app->router->get("search-title", function () use ($app) {
 
     if ($_SESSION["searchTitle"] ?? false) {
         $searchTitle = $_SESSION["searchTitle"];
-        print_r($searchTitle);
+        // print_r($searchTitle);
 }
 
     $data = [];
@@ -263,9 +263,31 @@ $app->router->post("movie-select", function () use ($app) {
         $_SESSION["movieId"] = $_POST["movieId"];
         return $app->response->redirect("movie-edit");
         }
+
+    elseif ($_POST["doAdd"] ?? false) {
+        $app->db->connect();
+        $sql = "INSERT INTO movie (title, year, image) VALUES (?, ?, ?);";
+        $app->db->execute($sql, ["A title", 2017, "img/noimage.png"]);
+        $_SESSION["movieId"] = $app->db->lastInsertId();
+        return $app->response->redirect("movie-edit");
+        }
+
+    elseif ($_POST["doDelete"] ?? false) {
+        $movieId = $_POST["movieId"];
+        $app->db->connect();
+        $sql = "DELETE FROM movie WHERE id = ?;";
+        $app->db->execute($sql, [$movieId]);
+        return $app->response->redirect("movie");
+        }
+
 });
 
-
+// elseif (getPost("doAdd")) {
+//             $sql = "INSERT INTO movie (title, year, image) VALUES (?, ?, ?);";
+//             $db->execute($sql, ["A title", 2017, "img/noimage.png"]);
+//             $movieId = $db->lastInsertId();
+//             header("Location: ?route=movie-edit&movieId=$movieId");
+//             exit;
 
 
 

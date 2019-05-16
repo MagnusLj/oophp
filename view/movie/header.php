@@ -8,16 +8,16 @@
 <body>
 
 <navbar class="navbar">
-    <a href="?route=select">SELECT *</a> |
-    <br>
-    <a href="?">Show all movies</a> |
-    <a href="?route=reset">Reset database</a> |
+    <!-- <a href="?route=select">SELECT *</a> |
+    <br> -->
+    <a href="movie">Show all movies</a> |
+    <!-- <a href="?route=reset">Reset database</a> | -->
     <a href="search-title">Search title</a> |
     <a href="search-year">Search year</a> |
-    <a href="movie-select">Select</a> |
+    <a href="movie-select">Select</a>
 <!--    <a href="?route=movie-edit">Edit</a> | -->
-    <a href="?route=show-all-sort">Show all sortable</a> |
-    <a href="?route=show-all-paginate">Show all paginate</a> |
+    <!-- <a href="?route=show-all-sort">Show all sortable</a> |
+    <a href="?route=show-all-paginate">Show all paginate</a> | -->
 </navbar>
 
 <h1>My Movie Database</h1>
