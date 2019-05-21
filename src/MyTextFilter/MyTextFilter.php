@@ -1,6 +1,7 @@
 <?php
 
 namespace Malm18\MyTextFilter;
+use Michelf\MarkdownExtra;
 
 /**
  * Filter and format text content.
@@ -10,6 +11,8 @@ namespace Malm18\MyTextFilter;
  */
 class MyTextFilter
 {
+    // use MarkdownExtra;
+
     /**
      * @var array $filters Supported filters with method names of
      *                     their respective handler.
@@ -46,6 +49,25 @@ class MyTextFilter
      */
     public function bbcode2html($text)
     {
+        $search = [
+            '/\[b\](.*?)\[\/b\]/is',
+            '/\[i\](.*?)\[\/i\]/is',
+            '/\[u\](.*?)\[\/u\]/is',
+            '/\[img\](https?.*?)\[\/img\]/is',
+            '/\[url\](https?.*?)\[\/url\]/is',
+            '/\[url=(https?.*?)\](.*?)\[\/url\]/is'
+        ];
+
+        $replace = [
+            '<strong>$1</strong>',
+            '<em>$1</em>',
+            '<u>$1</u>',
+            '<img src="$1" />',
+            '<a href="$1">$1</a>',
+            '<a href="$1">$2</a>'
+        ];
+
+        return preg_replace($search, $replace, $text);
     }
 
 
@@ -59,6 +81,13 @@ class MyTextFilter
      */
     public function makeClickable($text)
     {
+        return preg_replace_callback(
+            '#\b(?<![href|src]=[\'"])https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#',
+            function ($matches) {
+                return "<a href=\'{$matches[0]}\'>{$matches[0]}</a>";
+            },
+            $text
+        );
     }
 
 
@@ -72,6 +101,7 @@ class MyTextFilter
      */
     public function markdown($text)
     {
+        return MarkdownExtra::defaultTransform($text);
     }
 
 

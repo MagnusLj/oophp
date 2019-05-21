@@ -1,30 +1,16 @@
 <?php
 
+namespace Malm18\MyTextFilter;
+
 // Include essentials
 require __DIR__ . "/../src/config.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 
+$aFilter = new MyTextFilter();
 
-/**
- * Make clickable links from URLs in text.
- *
- * @param string $text the text that should be formatted.
- *
- * @return string the formatted text.
- */
-function makeClickable($text)
-{
-    return preg_replace_callback(
-        '#\b(?<![href|src]=[\'"])https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#',
-        function ($matches) {
-            return "<a href=\'{$matches[0]}\'>{$matches[0]}</a>";
-        },
-        $text
-    );
-}
-
-$text = file_get_contents(__DIR__ . "/../text/clickable.txt");
-$html = makeClickable($text);
+$text = file_get_contents(__DIR__ . "/../text/bbcode.txt");
+$html = $aFilter->makeClickable($text);
 
 
 ?><!doctype html>

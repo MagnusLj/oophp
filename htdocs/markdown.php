@@ -1,27 +1,20 @@
 <?php
 
-use Michelf\MarkdownExtra;
+// use Michelf\MarkdownExtra;
+namespace Malm18\MyTextFilter;
+
 
 // Include essentials
 require __DIR__ . "/../src/config.php";
 require __DIR__ . "/../vendor/autoload.php";
+// include(__DIR__ . "/../src/MyTextFilter/MyTextFilter.php");
 
-/**
- * Helper, Markdown formatting converting to HTML.
- *
- * @param string text The text to be converted.
- *
- * @return string the formatted text.
- *
- * @SuppressWarnings(PHPMD.StaticAccess)
- */
-function markdown($text)
-{
-    return MarkdownExtra::defaultTransform($text);
-}
+//use Michelf\MarkdownExtra;
+
+$aFilter = new MyTextFilter();
 
 $text = file_get_contents(__DIR__ . "/../text/sample.md");
-$html = markdown($text);
+$html = $aFilter->markdown($text);
 
 
 ?><!doctype html>
