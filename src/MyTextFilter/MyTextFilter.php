@@ -24,6 +24,11 @@ class MyTextFilter
         "nl2br"     => "nl2br",
     ];
 
+    public function showFilter($filter)
+    {
+        return $this->filters[$filter];
+    }
+
 
 
     /**
@@ -36,6 +41,14 @@ class MyTextFilter
      */
     public function parse($text, $filter)
     {
+        foreach ($filter as $oneFilter)
+        {
+            // $this->filters["$oneFilter"]($text);
+            $function = $this->filters[$oneFilter];
+            // echo $function;
+            $text = ($this->$function($text));
+        }
+        return $text;
     }
 
 
@@ -115,5 +128,6 @@ class MyTextFilter
      */
     public function nl2br($text)
     {
+        return nl2br($text, false);
     }
 }

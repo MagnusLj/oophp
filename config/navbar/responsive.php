@@ -84,5 +84,10 @@ return [
             "url" => "movie",
             "title" => "Lär dig allt om film",
         ],
+        [
+            "text" => "Filtertest",
+            "url" => "parse",
+            "title" => "Titta på filtertest",
+        ],
     ],
 ];
