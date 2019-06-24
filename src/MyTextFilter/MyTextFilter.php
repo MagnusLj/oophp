@@ -1,6 +1,7 @@
 <?php
 
 namespace Malm18\MyTextFilter;
+
 use Michelf\MarkdownExtra;
 
 /**
@@ -8,6 +9,8 @@ use Michelf\MarkdownExtra;
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  * @SuppressWarnings(PHPMD.UnusedPrivateField)
+ * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class MyTextFilter
 {
@@ -41,8 +44,7 @@ class MyTextFilter
      */
     public function parse($text, $filter)
     {
-        foreach ($filter as $oneFilter)
-        {
+        foreach ($filter as $oneFilter) {
             // $this->filters["$oneFilter"]($text);
             $function = $this->filters[$oneFilter];
             // echo $function;

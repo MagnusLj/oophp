@@ -88,5 +88,10 @@ return [
             "url" => "filterTest",
             "title" => "Titta på filtertest",
         ],
+        [
+            "text" => "Innehåll",
+            "url" => "content",
+            "title" => "Titta på innehåll",
+        ],
     ],
 ];
