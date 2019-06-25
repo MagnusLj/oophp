@@ -32,6 +32,192 @@ $app->router->get("content", function () use ($app) {
 });
 
 
+
+
+$app->router->get("pages", function () use ($app) {
+    $title = "Pages | oophp";
+
+    if ($_GET["route"] ?? false) {
+        $route = $_GET["route"];
+        echo ($route);
+        // echo (substr($route, 0, 5));
+        // if (substr($route, 0, 5) === "blog/") {
+            //  Matches blog/slug, display content by slug and type post
+            $app->db->connect();
+            $sql = <<<EOD
+SELECT
+    *,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS modified_iso8601,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS modified
+FROM content
+WHERE
+    path = ?
+    AND type = ?
+    AND (deleted IS NULL OR deleted > NOW())
+    AND published <= NOW()
+;
+EOD;
+            $resultset = $app->db->executeFetch($sql, [$route, "page"]);
+            $app->page->add("content/header");
+
+            $app->page->add("content/page", [
+                "resultset" => $resultset,
+            ]);
+
+            return $app->page->render([
+                "title" => $title,
+            ]);
+
+
+
+
+
+} else {
+
+
+        $app->db->connect();
+        $sql = <<<EOD
+SELECT
+    *,
+    CASE
+        WHEN (deleted <= NOW()) THEN "isDeleted"
+        WHEN (published <= NOW()) THEN "isPublished"
+        ELSE "notPublished"
+    END AS status
+FROM content
+WHERE type=?
+;
+EOD;
+        $resultset = $app->db->executeFetchAll($sql, ["page"]);
+
+
+
+    $app->page->add("content/header");
+
+    $app->page->add("content/pages", [
+        "resultset" => $resultset,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+}
+});
+
+
+
+
+
+$app->router->get("blog", function () use ($app) {
+    $title = "Blogg | oophp";
+
+    if ($_GET["route"] ?? false) {
+
+        $route = $_GET["route"];
+        echo ($route);
+        // echo (substr($route, 0, 5));
+        // if (substr($route, 0, 5) === "blog/") {
+            //  Matches blog/slug, display content by slug and type post
+            $app->db->connect();
+            $sql = <<<EOD
+SELECT
+    *,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+FROM content
+WHERE
+    slug = ?
+    AND type = ?
+    AND (deleted IS NULL OR deleted > NOW())
+    AND published <= NOW()
+ORDER BY published DESC
+;
+EOD;
+$slug = $route;
+    $resultset = $app->db->executeFetch($sql, [$slug, "post"]);
+    $app->page->add("content/header");
+
+    $app->page->add("content/blogpost", [
+        "resultset" => $resultset,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+
+
+    // if ($_POST["doSearch"] ?? false) {
+    //     $_SESSION["searchTitle"] = $_POST["searchTitle"];
+} else {
+
+        $app->db->connect();
+        $sql = <<<EOD
+SELECT
+    *,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+FROM content
+WHERE type=?
+ORDER BY published DESC
+;
+EOD;
+        $resultset = $app->db->executeFetchAll($sql, ["post"]);
+
+
+
+    $app->page->add("content/header");
+
+    $app->page->add("content/blog", [
+        "resultset" => $resultset,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+}
+});
+
+
+
+
+
+
+
+// $app->router->get("blog/*", function () use ($app) {
+//     $title = "Bloggpost | oophp";
+//
+//
+//
+//         $app->db->connect();
+//         $sql = <<<EOD
+// SELECT
+//     *,
+//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+// FROM content
+// WHERE type=?
+// ORDER BY published DESC
+// ;
+// EOD;
+//         $resultset = $app->db->executeFetchAll($sql, ["post"]);
+//
+//
+//
+//     $app->page->add("content/header");
+//
+//     $app->page->add("content/blog", [
+//         "resultset" => $resultset,
+//     ]);
+//
+//     return $app->page->render([
+//         "title" => $title,
+//     ]);
+// });
+
+
+
+
+
 $app->router->get("admin", function () use ($app) {
     $title = "Admin | oophp";
     // $searchTitle = "";
