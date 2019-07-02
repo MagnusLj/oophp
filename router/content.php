@@ -4,7 +4,9 @@
  */
 //var_dump(array_keys(get_defined_vars()));
 
-
+// namespace Malm18\Content;
+//
+// $xContent = new Content();
 
 /**
  * Show all movies.
@@ -179,40 +181,80 @@ EOD;
 
 
 
+$app->router->get("edit", function () use ($app) {
+    $title = "Edit | oophp";
+
+    if ($_GET["id"] ?? false) {
+
+        $id = $_GET["id"];
+        echo ($id);
+
+        $app->db->connect();
+        $sql = "SELECT * FROM content WHERE id = ?;";
+        $resultset = $app->db->executeFetch($sql, [$id]);
+
+
+    $app->page->add("content/header");
+
+    $app->page->add("content/edit", [
+        "resultset" => $resultset,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+}
+});
+
+
+$app->router->post("edit", function () use ($app) {
+    // $title = "Movie database | oophp";
+    $xContent = new Malm18\Content\Content();
 
 
 
 
-// $app->router->get("blog/*", function () use ($app) {
-//     $title = "Bloggpost | oophp";
-//
-//
-//
-//         $app->db->connect();
-//         $sql = <<<EOD
-// SELECT
-//     *,
-//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
-//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-// FROM content
-// WHERE type=?
-// ORDER BY published DESC
-// ;
-// EOD;
-//         $resultset = $app->db->executeFetchAll($sql, ["post"]);
-//
-//
-//
-//     $app->page->add("content/header");
-//
-//     $app->page->add("content/blog", [
-//         "resultset" => $resultset,
-//     ]);
-//
-//     return $app->page->render([
-//         "title" => $title,
-//     ]);
-// });
+    if ($xContent->hasKeyPost("doSave")) {
+        // $_SESSION["searchTitle"] = $_POST["searchTitle"];
+        $params = $xContent->getPost([
+                "contentTitle",
+                "contentPath",
+                "contentSlug",
+                "contentData",
+                "contentType",
+                "contentFilter",
+                "contentPublish",
+                "contentId"
+            ]);
+
+            if (!$params["contentSlug"]) {
+                    $params["contentSlug"] = $xContent->slugify($params["contentTitle"]);
+                }
+            if (!$params["contentPath"]) {
+                $params["contentPath"] = null;
+            }
+
+            $app->db->connect();
+            $sql = "UPDATE content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";
+            $app->db->execute($sql, array_values($params));
+    }
+
+
+    if ($xContent->hasKeyPost("doDelete")) {
+        // $_SESSION["searchTitle"] = $_POST["searchTitle"];
+        $contentId = $_GET["id"];
+        if (!is_numeric($contentId)) {
+            die("Not valid for content id.");
+        }
+
+            $app->db->connect();
+            $sql = "UPDATE content SET deleted=NOW() WHERE id=?;";
+            $app->db->execute($sql, [$contentId]);
+    }
+
+
+    return $app->response->redirect("admin");
+});
 
 
 
@@ -221,7 +263,9 @@ EOD;
 $app->router->get("admin", function () use ($app) {
     $title = "Admin | oophp";
     // $searchTitle = "";
-
+    if ($_SESSION) {
+        print_r($_SESSION);
+    }
 
     // if ($_SESSION["searchTitle"] ?? false) {
     //     $searchTitle = $_SESSION["searchTitle"];
@@ -262,6 +306,78 @@ $app->router->get("admin", function () use ($app) {
         "title" => $title,
     ]);
 });
+
+
+$app->router->post("admin", function () use ($app) {
+    // $title = "Movie database | oophp";
+
+    print_r($_POST);
+
+    // if ($_POST["doCreate"] ?? false) {
+    //     // $_SESSION["searchTitle"] = $_POST["searchTitle"];
+    //     return $app->response->redirect("pages");
+    // }
+
+
+    return $app->response->redirect("create");
+});
+
+
+
+$app->router->get("create", function () use ($app) {
+    $title = "Create | oophp";
+        //
+        // $app->db->connect();
+        // $sql = "SELECT * FROM content;";
+        // $resultset = $app->db->executeFetchAll($sql);
+
+
+
+    $app->page->add("content/header");
+
+    $app->page->add("content/create", [
+        // "resultset" => $resultset,
+    ]);
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+
+});
+
+
+
+$app->router->post("create", function () use ($app) {
+    $xContent = new Malm18\Content\Content();
+    // $title = "Create | oophp";
+
+    if ($xContent->hasKeyPost("doCreate")) {
+        // return $app->response->redirect("false");
+        $_SESSION["contentTitle"] = $_POST["contentTitle"];
+        $_SESSION["cock"] = "bird";
+        $title = $_POST["contentTitle"];
+        $app->db->connect();
+        $sql = "INSERT INTO content (title) VALUES (?);";
+        $app->db->execute($sql, [$title]);
+
+}
+    $_SESSION["Ass"] = "Donkey";
+    // $_SESSION = $_POST;
+    return $app->response->redirect("admin");
+    // $app->page->add("content/header");
+    //
+    // $app->page->add("content/create", [
+    //     // "resultset" => $resultset,
+    // ]);
+    //
+    // return $app->page->render([
+    //     "title" => $title,
+    // ]);
+
+});
+
+
+
 
 
 $app->router->post("search-title", function () use ($app) {

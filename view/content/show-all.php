@@ -6,10 +6,12 @@ if (!$resultset) {
 
 <table>
     <tr class="first">
-        <th>Rad</th>
+        <!-- <th>Rad</th> -->
         <th>Id</th>
         <th>Title</th>
         <th>Type</th>
+        <th>Path</th>
+        <th>Slug</th>
         <th>Published</th>
         <th>Created</th>
         <th>Updated</th>
@@ -18,10 +20,11 @@ if (!$resultset) {
 <?php $id = -1; foreach ($resultset as $row) :
     $id++; ?>
     <tr>
-        <td><?= $id ?></td>
         <td><?= $row->id ?></td>
         <td><?= $row->title ?></td>
         <td><?= $row->type ?></td>
+        <td><?= $row->path ?></td>
+        <td><?= $row->slug ?></td>
         <td><?= $row->published ?></td>
         <td><?= $row->created ?></td>
         <td><?= $row->updated ?></td>

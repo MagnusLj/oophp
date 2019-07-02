@@ -11,7 +11,7 @@
 <navbar class="navbar">
     <a href="content">Show all content</a> |
     <a href="admin">Admin</a> |
-    <a href="?route=create">Create</a> |
+    <!-- <a href="?route=create">Create</a> | -->
     <a href="?route=reset">Reset database</a> |
     <a href="pages">View pages</a> |
     <a href="blog">View blog</a> |
