@@ -153,16 +153,30 @@ $slug = $route;
 } else {
 
         $app->db->connect();
-        $sql = <<<EOD
+//         $sql = <<<EOD
+// SELECT
+//     *,
+//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+//     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+// FROM content
+// WHERE type=?
+// ORDER BY published DESC
+// ;
+// EOD;
+
+$sql = <<<EOD
 SELECT
-    *,
-    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
-    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+*,
+DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
 FROM content
 WHERE type=?
+AND (deleted IS NULL OR deleted > NOW())
+AND published <= NOW()
 ORDER BY published DESC
 ;
 EOD;
+
         $resultset = $app->db->executeFetchAll($sql, ["post"]);
 
 
@@ -227,9 +241,26 @@ $app->router->post("edit", function () use ($app) {
                 "contentId"
             ]);
 
+            $app->db->connect();
+            $sql = "SELECT * from content;";
+            $resultset = $app->db->executeFetchAll($sql);
+
+
             if (!$params["contentSlug"]) {
                     $params["contentSlug"] = $xContent->slugify($params["contentTitle"]);
                 }
+
+
+            foreach ($resultset as $row) {
+                if (($params["contentSlug"] == $row->slug)) {
+                    $params["contentSlug"] = $params["contentSlug"] . "x";
+                    continue;
+                }
+            }
+
+
+
+
             if (!$params["contentPath"]) {
                 $params["contentPath"] = null;
             }
