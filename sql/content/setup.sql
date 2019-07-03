@@ -56,3 +56,24 @@ SELECT `id`, `path`, `slug`, `type`, `title`, `created` FROM `content`;
 --
 --
 --   ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+
+--
+-- Create table for users
+--
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`
+(
+  `number` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `user` VARCHAR(120),
+  `password` VARCHAR(120),
+  `name` CHAR(120)
+
+) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+
+INSERT INTO `users` (`user`, `password`, `name`) VALUES
+    ("admin", "admin", "Administratör"),
+    ("doe", "doe", "James Doe"),
+    ("test", "test", "Administratör");
+
+SELECT * FROM `users`;

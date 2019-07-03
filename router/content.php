@@ -355,6 +355,74 @@ $app->router->post("admin", function () use ($app) {
 
 
 
+$app->router->get("login", function () use ($app) {
+    $title = "Login | oophp";
+
+    $user = "test";
+    $password = "test";
+
+    if (isset($_SESSION)) {
+        print_r($_SESSION);
+    }
+
+    $app->db->connect();
+    $sql = "SELECT * FROM users;";
+    $resultset = $app->db->executeFetchAll($sql);
+
+    foreach ($resultset as $row) {
+        // if (($user == $row->user && $password == $row->password)) {
+            echo $row->user . " " . $row->password;
+            // break;
+        }
+    // }
+
+    $app->page->add("content/header");
+
+    $app->page->add("content/login");
+
+    return $app->page->render([
+        "title" => $title,
+    ]);
+});
+
+
+$app->router->post("login", function () use ($app) {
+
+    // Get incoming values from posted form
+    $user = $_POST["user"] ?? null;
+    $password = $_POST["password"] ?? null;
+
+    // $_SESSION["user"] = $_POST["user"] ?? null;
+    // $_SESSION["password"] = $_POST["password"] ?? null;
+
+    $app->db->connect();
+    $sql = "SELECT * FROM users;";
+    $resultset = $app->db->executeFetchAll($sql);
+
+    foreach ($resultset as $row) {
+        if (($user === $row->user && $password === $row->password)) {
+            $_SESSION["user"] = $_POST["user"] ?? null;
+            $_SESSION["password"] = $_POST["password"] ?? null;
+            return $app->response->redirect("admin");
+            break;
+        } 
+    }
+
+    return $app->response->redirect("login");
+
+    // $title = "Login | oophp";
+    //
+    // $app->page->add("content/header");
+    //
+    // $app->page->add("content/login");
+    //
+    // return $app->page->render([
+    //     "title" => $title,
+    // ]);
+});
+
+
+
 $app->router->get("create", function () use ($app) {
     $title = "Create | oophp";
         //

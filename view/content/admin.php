@@ -1,9 +1,10 @@
 <?php
-if (!$resultset) {
-    echo "No resultsset";
-    return;
-}
+// if (!$resultset) {
+//     echo "No resultsset";
+//     return;
+// }
 ?>
+
 
 <table>
     <tr class="first">
