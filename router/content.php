@@ -331,7 +331,7 @@ $app->router->get("admin", function () use ($app) {
     $title = "Admin | oophp";
     // $searchTitle = "";
     if ($_SESSION) {
-        print_r($_SESSION);
+        // print_r($_SESSION);
     }
 
     // if ($_SESSION["searchTitle"] ?? false) {
@@ -382,7 +382,7 @@ $app->router->get("admin", function () use ($app) {
 $app->router->post("admin", function () use ($app) {
     // $title = "Movie database | oophp";
 
-    print_r($_POST);
+    // print_r($_POST);
 
     // if ($_POST["doCreate"] ?? false) {
     //     // $_SESSION["searchTitle"] = $_POST["searchTitle"];
@@ -401,9 +401,9 @@ $app->router->get("login", function () use ($app) {
     $user = "test";
     $password = "test";
 
-    if (isset($_SESSION)) {
-        print_r($_SESSION);
-    }
+    // if (isset($_SESSION)) {
+    //     print_r($_SESSION);
+    // }
 
     $app->db->connect();
     $sql = "SELECT * FROM users;";
@@ -516,14 +516,14 @@ $app->router->post("create", function () use ($app) {
     if ($xContent->hasKeyPost("doCreate")) {
         // return $app->response->redirect("false");
         $_SESSION["contentTitle"] = $_POST["contentTitle"];
-        $_SESSION["cock"] = "bird";
+        // $_SESSION["cock"] = "bird";
         $title = $_POST["contentTitle"];
         $app->db->connect();
         $sql = "INSERT INTO content (title) VALUES (?);";
         $app->db->execute($sql, [$title]);
 
 }
-    $_SESSION["Ass"] = "Donkey";
+    // $_SESSION["Ass"] = "Donkey";
     // $_SESSION = $_POST;
     return $app->response->redirect("admin");
     // $app->page->add("content/header");

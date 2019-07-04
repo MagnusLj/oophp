@@ -14,7 +14,7 @@ $text2 = file_get_contents(__DIR__ . "../../../text/bbcode.txt");
 $text3 = file_get_contents(__DIR__ . "../../../text/nl2br.txt");
 $text4 = file_get_contents(__DIR__ . "../../../text/sample.md");
 
-$html = $aFilter->parse($text, ["link"]);
+$html = $aFilter->parse($text, ["link", "nl2br"]);
 $html2 = $aFilter->parse($text2, ["bbcode"]);
 $html3 = $aFilter->parse($text3, ["nl2br"]);
 $html4 = $aFilter->parse($text4, ["markdown"]);
@@ -25,7 +25,7 @@ $html4 = $aFilter->parse($text4, ["markdown"]);
 <!-- <style>body {width: 700px;}</style> -->
 <title>Show off filters | oophp</title>
 
-<h1>Showing off Clickable</h1>
+<h1>Showing off Clickable and nl2br</h1>
 
 <h2>Source in clickable.txt</h2>
 <pre><?= wordwrap(htmlentities($text)) ?></pre>
@@ -48,7 +48,7 @@ $html4 = $aFilter->parse($text4, ["markdown"]);
 <h2>Filter BBCode applied, source</h2>
 <pre><?= wordwrap(htmlentities($html2)) ?></pre>
 
-<h2>Filter BBCode applied, HTML (including nl2br())</h2>
+<h2>Filter BBCode applied, HTML (including nl2br)</h2>
 <?= nl2br($html2) ?>
 
 
