@@ -15,6 +15,7 @@
     <a href="?route=reset">Reset database</a> |
     <a href="pages">View pages</a> |
     <a href="blog">View blog</a> |
+    <a href="logout">Log out</a>
 </navbar>
 
 <h1>My Content Database</h1>

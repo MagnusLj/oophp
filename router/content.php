@@ -18,11 +18,15 @@ $app->router->get("content", function () use ($app) {
     $sql = "SELECT * FROM content;";
     $resultset = $app->db->executeFetchAll($sql);
 
-    $pigobj = new Malm18\Pig\Pig();
+    // $pigobj = new Malm18\Pig\Pig();
+    //
+    // $pigobj->gozer();
 
-    $pigobj->gozer();
-
-    $app->page->add("content/header");
+    if ($_SESSION["user"] ?? null) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/show-all", [
         "resultset" => $resultset,
@@ -41,7 +45,7 @@ $app->router->get("pages", function () use ($app) {
 
     if ($_GET["route"] ?? false) {
         $route = $_GET["route"];
-        echo ($route);
+        // echo ($route);
         // echo (substr($route, 0, 5));
         // if (substr($route, 0, 5) === "blog/") {
             //  Matches blog/slug, display content by slug and type post
@@ -60,7 +64,13 @@ WHERE
 ;
 EOD;
             $resultset = $app->db->executeFetch($sql, [$route, "page"]);
-            $app->page->add("content/header");
+
+
+            if ($_SESSION["user"]) {
+                $app->page->add("content/header2");
+            } else {
+                $app->page->add("content/header");
+            }
 
             $app->page->add("content/page", [
                 "resultset" => $resultset,
@@ -94,7 +104,11 @@ EOD;
 
 
 
-    $app->page->add("content/header");
+    if ($_SESSION["user"] ?? null) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/pages", [
         "resultset" => $resultset,
@@ -113,10 +127,14 @@ EOD;
 $app->router->get("blog", function () use ($app) {
     $title = "Blogg | oophp";
 
+    // if ($_SESSION) {
+    //     print_r($_SESSION);
+    // }
+
     if ($_GET["route"] ?? false) {
 
         $route = $_GET["route"];
-        echo ($route);
+        // echo ($route);
         // echo (substr($route, 0, 5));
         // if (substr($route, 0, 5) === "blog/") {
             //  Matches blog/slug, display content by slug and type post
@@ -137,7 +155,17 @@ ORDER BY published DESC
 EOD;
 $slug = $route;
     $resultset = $app->db->executeFetch($sql, [$slug, "post"]);
-    $app->page->add("content/header");
+
+
+    if ($_SESSION["user"] ?? null) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
+
+
+
+    // $app->page->add("content/header");
 
     $app->page->add("content/blogpost", [
         "resultset" => $resultset,
@@ -181,7 +209,11 @@ EOD;
 
 
 
-    $app->page->add("content/header");
+    if ($_SESSION["user"] ?? null) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/blog", [
         "resultset" => $resultset,
@@ -208,7 +240,11 @@ $app->router->get("edit", function () use ($app) {
         $resultset = $app->db->executeFetch($sql, [$id]);
 
 
-    $app->page->add("content/header");
+    if ($_SESSION["user"]) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/edit", [
         "resultset" => $resultset,
@@ -316,7 +352,11 @@ $app->router->get("admin", function () use ($app) {
 
 
 
-    $app->page->add("content/header");
+    if ($_SESSION["user"] ?? null) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/admin", [
         "resultset" => $resultset,
@@ -369,11 +409,11 @@ $app->router->get("login", function () use ($app) {
     $sql = "SELECT * FROM users;";
     $resultset = $app->db->executeFetchAll($sql);
 
-    foreach ($resultset as $row) {
-        // if (($user == $row->user && $password == $row->password)) {
-            echo $row->user . " " . $row->password;
-            // break;
-        }
+    // foreach ($resultset as $row) {
+    //     // if (($user == $row->user && $password == $row->password)) {
+    //         echo $row->user . " " . $row->password;
+    //         // break;
+    //     }
     // }
 
     $app->page->add("content/header");
@@ -401,13 +441,18 @@ $app->router->post("login", function () use ($app) {
 
     foreach ($resultset as $row) {
         if (($user === $row->user && $password === $row->password)) {
-            $_SESSION["user"] = $_POST["user"] ?? null;
-            $_SESSION["password"] = $_POST["password"] ?? null;
+            // $_SESSION["user"] = $_POST["user"] ?? null;
+            // $_SESSION["password"] = $_POST["password"] ?? null;
+            $_SESSION["user"] = $user;
+            $_SESSION["name"] = $row->name;
+            $name = $row->name;
+            $_SESSION["flashmessage"] = "Welcome, user $name!";
             return $app->response->redirect("admin");
             break;
-        } 
+        }
     }
 
+    $_SESSION["flashmessage"] = "You failed to login!";
     return $app->response->redirect("login");
 
     // $title = "Login | oophp";
@@ -423,6 +468,20 @@ $app->router->post("login", function () use ($app) {
 
 
 
+
+
+$app->router->get("logout", function () use ($app) {
+
+    $user = $_SESSION["user"] ?? null;
+    $name = $_SESSION["name"] ?? null;
+    $_SESSION["user"] = null;
+    $_SESSION["flashmessage"] = "User $name has logged out.";
+    return $app->response->redirect("login");
+
+});
+
+
+
 $app->router->get("create", function () use ($app) {
     $title = "Create | oophp";
         //
@@ -432,7 +491,11 @@ $app->router->get("create", function () use ($app) {
 
 
 
-    $app->page->add("content/header");
+    if ($_SESSION["user"]) {
+        $app->page->add("content/header2");
+    } else {
+        $app->page->add("content/header");
+    }
 
     $app->page->add("content/create", [
         // "resultset" => $resultset,

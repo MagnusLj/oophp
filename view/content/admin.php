@@ -1,9 +1,7 @@
-<?php
-// if (!$resultset) {
-//     echo "No resultsset";
-//     return;
-// }
-?>
+<?php if (!($_SESSION["user"] ?? null)) : ?>
+    <p>You need to login to see protected information.</p>
+    <?php return; ?>
+<?php endif; ?>
 
 
 <table>
