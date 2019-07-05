@@ -3,7 +3,6 @@
 // use Michelf\MarkdownExtra;
 namespace Malm18\MyTextFilter;
 
-
 // Include essentials
 require __DIR__ . "/../src/config.php";
 require __DIR__ . "/../vendor/autoload.php";

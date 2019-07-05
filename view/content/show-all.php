@@ -8,14 +8,14 @@ if (!$resultset) {
     <tr class="first">
         <!-- <th>Rad</th> -->
         <th>Id</th>
-        <th>Title</th>
-        <th>Type</th>
+        <th>Titel</th>
+        <th>Typ</th>
         <th>Path</th>
         <th>Slug</th>
-        <th>Published</th>
-        <th>Created</th>
-        <th>Updated</th>
-        <th>Deleted</th>
+        <th>Publicerad</th>
+        <th>Skapad</th>
+        <th>Uppdaterad</th>
+        <th>Borttagen</th>
     </tr>
 <?php $id = -1; foreach ($resultset as $row) :
     $id++; ?>

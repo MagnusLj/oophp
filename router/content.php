@@ -28,7 +28,7 @@ $app->router->get("content", function () use ($app) {
         $app->page->add("content/header");
     }
 
-    $app->page->add("content/show-all", [
+    $app->page->add("content/blog", [
         "resultset" => $resultset,
     ]);
 
@@ -41,7 +41,7 @@ $app->router->get("content", function () use ($app) {
 
 
 $app->router->get("pages", function () use ($app) {
-    $title = "Pages | oophp";
+    $title = "Sidor | oophp";
 
     if ($_GET["route"] ?? false) {
         $route = $_GET["route"];
@@ -66,11 +66,11 @@ EOD;
             $resultset = $app->db->executeFetch($sql, [$route, "page"]);
 
 
-            if ($_SESSION["user"]) {
+        if ($_SESSION["user"]) {
                 $app->page->add("content/header2");
-            } else {
+        } else {
                 $app->page->add("content/header");
-            }
+        }
 
             $app->page->add("content/page", [
                 "resultset" => $resultset,
@@ -79,14 +79,7 @@ EOD;
             return $app->page->render([
                 "title" => $title,
             ]);
-
-
-
-
-
-} else {
-
-
+    } else {
         $app->db->connect();
         $sql = <<<EOD
 SELECT
@@ -104,20 +97,20 @@ EOD;
 
 
 
-    if ($_SESSION["user"] ?? null) {
-        $app->page->add("content/header2");
-    } else {
-        $app->page->add("content/header");
-    }
+        if ($_SESSION["user"] ?? null) {
+            $app->page->add("content/header2");
+        } else {
+            $app->page->add("content/header");
+        }
 
-    $app->page->add("content/pages", [
+        $app->page->add("content/pages", [
         "resultset" => $resultset,
-    ]);
+        ]);
 
-    return $app->page->render([
+        return $app->page->render([
         "title" => $title,
-    ]);
-}
+        ]);
+    }
 });
 
 
@@ -132,7 +125,6 @@ $app->router->get("blog", function () use ($app) {
     // }
 
     if ($_GET["route"] ?? false) {
-
         $route = $_GET["route"];
         // echo ($route);
         // echo (substr($route, 0, 5));
@@ -153,33 +145,32 @@ WHERE
 ORDER BY published DESC
 ;
 EOD;
-$slug = $route;
-    $resultset = $app->db->executeFetch($sql, [$slug, "post"]);
+        $slug = $route;
+        $resultset = $app->db->executeFetch($sql, [$slug, "post"]);
 
 
-    if ($_SESSION["user"] ?? null) {
-        $app->page->add("content/header2");
-    } else {
-        $app->page->add("content/header");
-    }
+        if ($_SESSION["user"] ?? null) {
+            $app->page->add("content/header2");
+        } else {
+            $app->page->add("content/header");
+        }
 
 
 
     // $app->page->add("content/header");
 
-    $app->page->add("content/blogpost", [
+        $app->page->add("content/blogpost", [
         "resultset" => $resultset,
-    ]);
+        ]);
 
-    return $app->page->render([
+        return $app->page->render([
         "title" => $title,
-    ]);
+        ]);
 
 
     // if ($_POST["doSearch"] ?? false) {
     //     $_SESSION["searchTitle"] = $_POST["searchTitle"];
-} else {
-
+    } else {
         $app->db->connect();
 //         $sql = <<<EOD
 // SELECT
@@ -192,7 +183,7 @@ $slug = $route;
 // ;
 // EOD;
 
-$sql = <<<EOD
+        $sql = <<<EOD
 SELECT
 *,
 DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
@@ -209,29 +200,28 @@ EOD;
 
 
 
-    if ($_SESSION["user"] ?? null) {
-        $app->page->add("content/header2");
-    } else {
-        $app->page->add("content/header");
-    }
+        if ($_SESSION["user"] ?? null) {
+            $app->page->add("content/header2");
+        } else {
+            $app->page->add("content/header");
+        }
 
-    $app->page->add("content/blog", [
+        $app->page->add("content/blog", [
         "resultset" => $resultset,
-    ]);
+        ]);
 
-    return $app->page->render([
+        return $app->page->render([
         "title" => $title,
-    ]);
-}
+        ]);
+    }
 });
 
 
 
 $app->router->get("edit", function () use ($app) {
-    $title = "Edit | oophp";
+    $title = "Redigera | oophp";
 
     if ($_GET["id"] ?? false) {
-
         $id = $_GET["id"];
         echo ($id);
 
@@ -240,20 +230,20 @@ $app->router->get("edit", function () use ($app) {
         $resultset = $app->db->executeFetch($sql, [$id]);
 
 
-    if ($_SESSION["user"]) {
-        $app->page->add("content/header2");
-    } else {
-        $app->page->add("content/header");
-    }
+        if ($_SESSION["user"]) {
+            $app->page->add("content/header2");
+        } else {
+            $app->page->add("content/header");
+        }
 
-    $app->page->add("content/edit", [
+        $app->page->add("content/edit", [
         "resultset" => $resultset,
-    ]);
+        ]);
 
-    return $app->page->render([
+        return $app->page->render([
         "title" => $title,
-    ]);
-}
+        ]);
+    }
 });
 
 
@@ -282,24 +272,24 @@ $app->router->post("edit", function () use ($app) {
             $resultset = $app->db->executeFetchAll($sql);
 
 
-            if (!$params["contentSlug"]) {
-                    $params["contentSlug"] = $xContent->slugify($params["contentTitle"]);
-                }
+        if (!$params["contentSlug"]) {
+                $params["contentSlug"] = $xContent->slugify($params["contentTitle"]);
+        }
 
 
-            foreach ($resultset as $row) {
-                if (($params["contentSlug"] == $row->slug)) {
+        foreach ($resultset as $row) {
+            if (($params["contentSlug"] == $row->slug)) {
                     $params["contentSlug"] = $params["contentSlug"] . "x";
                     continue;
-                }
             }
+        }
 
 
 
 
-            if (!$params["contentPath"]) {
-                $params["contentPath"] = null;
-            }
+        if (!$params["contentPath"]) {
+            $params["contentPath"] = null;
+        }
 
             $app->db->connect();
             $sql = "UPDATE content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";
@@ -328,7 +318,7 @@ $app->router->post("edit", function () use ($app) {
 
 
 $app->router->get("admin", function () use ($app) {
-    $title = "Admin | oophp";
+    $title = "Administrera innehåll | oophp";
     // $searchTitle = "";
     if ($_SESSION) {
         // print_r($_SESSION);
@@ -396,7 +386,7 @@ $app->router->post("admin", function () use ($app) {
 
 
 $app->router->get("login", function () use ($app) {
-    $title = "Login | oophp";
+    $title = "Logga in | oophp";
 
     $user = "test";
     $password = "test";
@@ -446,13 +436,13 @@ $app->router->post("login", function () use ($app) {
             $_SESSION["user"] = $user;
             $_SESSION["name"] = $row->name;
             $name = $row->name;
-            $_SESSION["flashmessage"] = "Welcome, user $name!";
+            $_SESSION["flashmessage"] = "Välkommen, o store $name!";
             return $app->response->redirect("admin");
             break;
         }
     }
 
-    $_SESSION["flashmessage"] = "You failed to login!";
+    $_SESSION["flashmessage"] = "Du blev inte inloggad!";
     return $app->response->redirect("login");
 
     // $title = "Login | oophp";
@@ -475,15 +465,14 @@ $app->router->get("logout", function () use ($app) {
     $user = $_SESSION["user"] ?? null;
     $name = $_SESSION["name"] ?? null;
     $_SESSION["user"] = null;
-    $_SESSION["flashmessage"] = "User $name has logged out.";
+    $_SESSION["flashmessage"] = "Användare $name har loggat ut.";
     return $app->response->redirect("login");
-
 });
 
 
 
 $app->router->get("create", function () use ($app) {
-    $title = "Create | oophp";
+    $title = "Skapa | oophp";
         //
         // $app->db->connect();
         // $sql = "SELECT * FROM content;";
@@ -504,7 +493,6 @@ $app->router->get("create", function () use ($app) {
     return $app->page->render([
         "title" => $title,
     ]);
-
 });
 
 
@@ -521,21 +509,10 @@ $app->router->post("create", function () use ($app) {
         $app->db->connect();
         $sql = "INSERT INTO content (title) VALUES (?);";
         $app->db->execute($sql, [$title]);
-
-}
+    }
     // $_SESSION["Ass"] = "Donkey";
     // $_SESSION = $_POST;
     return $app->response->redirect("admin");
-    // $app->page->add("content/header");
-    //
-    // $app->page->add("content/create", [
-    //     // "resultset" => $resultset,
-    // ]);
-    //
-    // return $app->page->render([
-    //     "title" => $title,
-    // ]);
-
 });
 
 

@@ -1,16 +1,16 @@
 <form method="post">
     <fieldset>
-    <legend>Create</legend>
+    <legend>Skapa ny</legend>
 
     <p>
-        <label>Title:<br>
+        <label>Titel:<br>
         <input type="text" name="contentTitle" default="A Title"/>
         </label>
     </p>
 
     <p>
-        <button type="submit" name="doCreate"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
-        <button type="reset"><i class="fa fa-undo" aria-hidden="true"></i> Reset</button>
+        <button type="submit" name="doCreate"><i class="fa fa-plus" aria-hidden="true"></i> Skapa</button>
+        <!-- <button type="reset"><i class="fa fa-undo" aria-hidden="true"></i> Reset</button> -->
     </p>
     </fieldset>
 </form>

@@ -7,13 +7,13 @@
 <table>
     <tr class="first">
         <th>Id</th>
-        <th>Title</th>
-        <th>Type</th>
-        <th>Published</th>
-        <th>Created</th>
-        <th>Updated</th>
-        <th>Deleted</th>
-        <th>Actions</th>
+        <th>Titel</th>
+        <th>Typ</th>
+        <th>Publicerad</th>
+        <th>Skapad</th>
+        <th>Updaterad</th>
+        <th>Borttagen</th>
+        <th>Redigera</th>
     </tr>
 <?php $id = -1; foreach ($resultset as $row) :
     $id++; ?>
@@ -26,14 +26,14 @@
         <td><?= $row->updated ?></td>
         <td><?= $row->deleted ?></td>
         <td>
-            <a class="icons" href="edit?id=<?= $row->id ?>" title="Edit this content">
+            <a class="icons" href="edit?id=<?= $row->id ?>" title="Redigera innehåll">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            x</a>
+            </a>
         </td>
     </tr>
 <?php endforeach; ?>
 </table>
 
 <form method="post">
-<button type="submit" name="doCreate"><i class="fa fa-plus" aria-hidden="true"></i> Create new</button>
+<button type="submit" name="doCreate"><i class="fa fa-plus" aria-hidden="true"></i> Skapa nytt</button>
 </form>

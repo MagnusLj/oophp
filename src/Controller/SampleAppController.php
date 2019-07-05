@@ -24,10 +24,10 @@ class SampleAppController implements AppInjectableInterface
 
 
 
-    /**
-     * @var string $db a sample member variable that gets initialised
-     */
-    private $db = "not active";
+    // /**
+    //  * @var string $db a sample member variable that gets initialised
+    //  */
+    // private $db = "not active";
 
 
 

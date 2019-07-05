@@ -16,53 +16,53 @@ class Pig implements HistogramInterface
     /**
  * A dicehand, consisting of dice.
  */
-    /**
-     * @var int  $values  Array consisting of last roll of the dices.
-     */
-    private $value;
-     // public $value;
-
-    //  /**
-    //  * @var int $lastRoll  Value of the last roll.
-    //  */
-    // private $lastRoll;
-
-    /**
-    * @var string $lastRoll  Value of the last roll.
-    */
-    private $name;
-
-   /**
-   * @var bool $lastRoll  Value of the last roll.
-   */
-    private $active;
-
-
-
-  /**
-  * @var int $die1, die1 value.
-  */
-    private $die1;
-
- /**
- * @var int $die2, die1 value.
- */
-    private $die2;
-
-/**
-* @var int $rolls  Number of rolls.
-*/
-    private $rolls;
-
-/**
-* @var int $turnScore Curernt score
-*/
-    private $turnScore;
-
-/**
-* @var int $totalScore. Total score
-*/
-    private $totalScore;
+//     /**
+//      * @var int  $values  Array consisting of last roll of the dices.
+//      */
+//     private $value;
+//      // public $value;
+//
+//     //  /**
+//     //  * @var int $lastRoll  Value of the last roll.
+//     //  */
+//     // private $lastRoll;
+//
+//     /**
+//     * @var string $lastRoll  Value of the last roll.
+//     */
+//     private $name;
+//
+//    /**
+//    * @var bool $lastRoll  Value of the last roll.
+//    */
+//     private $active;
+//
+//
+//
+//   /**
+//   * @var int $die1, die1 value.
+//   */
+//     private $die1;
+//
+//  /**
+//  * @var int $die2, die1 value.
+//  */
+//     private $die2;
+//
+// /**
+// * @var int $rolls  Number of rolls.
+// */
+//     private $rolls;
+//
+// /**
+// * @var int $turnScore Curernt score
+// */
+//     private $turnScore;
+//
+// /**
+// * @var int $totalScore. Total score
+// */
+//     private $totalScore;
 
 
     /**

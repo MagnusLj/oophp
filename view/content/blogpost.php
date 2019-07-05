@@ -9,7 +9,7 @@ $xFilter = new MyTextFilter();
 $data = $xContent->esc($resultset->data);
 
 if ($resultset->filter ?? null) {
-    $filterarray = explode(",",$resultset->filter);
+    $filterarray = explode(",", $resultset->filter);
     // print_r($filterarray);
     foreach ($filterarray as $filter) {
         // echo ("<br>" . $filter . "<br>");
@@ -28,7 +28,7 @@ if ($resultset->filter ?? null) {
 <article>
     <header>
         <h1><?= $xContent->esc($resultset->title) ?></h1>
-        <p><i>Published: <time datetime="<?= $xContent->esc($resultset->published_iso8601) ?>" pubdate><?= $xContent->esc($resultset->published) ?></time></i></p>
+        <p><i>Publicerad: <time datetime="<?= $xContent->esc($resultset->published_iso8601) ?>" pubdate><?= $xContent->esc($resultset->published) ?></time></i></p>
     </header>
     <?= $data ?>
 </article>

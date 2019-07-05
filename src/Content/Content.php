@@ -21,7 +21,7 @@ class Content
      *
      * @return string beeing sanitized
      */
-    function esc($value)
+    public function esc($value)
     {
         return htmlentities($value);
     }
@@ -35,7 +35,7 @@ class Content
      *
      * @return boolean true if key is set, otherwise false
      */
-    function hasKeyPost($key)
+    public function hasKeyPost($key)
     {
         return array_key_exists($key, $_POST);
     }
@@ -49,7 +49,7 @@ class Content
      *
      * @return str the formatted slug.
      */
-    function slugify($str)
+    public function slugify($str)
     {
         $str = mb_strtolower(trim($str));
         $str = str_replace(['å','ä'], 'a', $str);
@@ -68,7 +68,7 @@ class Content
      *
      * @return mixed value from POST or the default value
      */
-    function getPost($key, $default = null)
+    public function getPost($key, $default = null)
     {
         if (is_array($key)) {
             // $key = array_flip($key);
@@ -92,13 +92,10 @@ class Content
      *
      * @return mixed value from GET or the default value
      */
-    function getGet($key, $default = null)
+    public function getGet($key, $default = null)
     {
         return isset($_GET[$key])
             ? $_GET[$key]
             : $default;
     }
-
-
-
 }

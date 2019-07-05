@@ -7,11 +7,11 @@ if (!$resultset) {
 <table>
     <tr class="first">
         <th>Id</th>
-        <th>Title</th>
-        <th>Type</th>
+        <th>Titel</th>
+        <th>Typ</th>
         <th>Status</th>
-        <th>Published</th>
-        <th>Deleted</th>
+        <th>Publicerad</th>
+        <th>Borttagen</th>
     </tr>
 <?php $id = -1; foreach ($resultset as $row) :
     $id++; ?>

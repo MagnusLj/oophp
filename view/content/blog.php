@@ -11,12 +11,13 @@ if (!$resultset) {
 ?>
 
 <article>
+<h1>Blogg</h1>
 
 <?php foreach ($resultset as $row) : ?>
 <section>
     <header>
         <h1><a href="?route=<?= $xContent->esc($row->slug) ?>"><?= $xContent->esc($row->title) ?></a></h1>
-        <p><i>Published: <time datetime="<?= $xContent->esc($row->published_iso8601) ?>" pubdate><?= $xContent->esc($row->published) ?></time></i></p>
+        <p><i>Publicerad: <time datetime="<?= $xContent->esc($row->published_iso8601) ?>" pubdate><?= $xContent->esc($row->published) ?></time></i></p>
     </header>
     <?= $xContent->esc($row->data) ?>
 </section>
