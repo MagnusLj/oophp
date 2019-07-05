@@ -28,7 +28,7 @@ $app->router->get("content", function () use ($app) {
         $app->page->add("content/header");
     }
 
-    $app->page->add("content/blog", [
+    $app->page->add("content/show-all", [
         "resultset" => $resultset,
     ]);
 
@@ -66,7 +66,7 @@ EOD;
             $resultset = $app->db->executeFetch($sql, [$route, "page"]);
 
 
-        if ($_SESSION["user"]) {
+        if ($_SESSION["user"] ?? null) {
                 $app->page->add("content/header2");
         } else {
                 $app->page->add("content/header");
